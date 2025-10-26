@@ -31,7 +31,12 @@ function parseCSVToEditais(csvText: string): Edital[] {
 
     const values = parseCSVLine(lines[i]);
 
-    if (values.length < headers.length) continue;
+    if (values.length < 10) continue;
+
+    const statusValue = (values[9] || '').toLowerCase().trim();
+    const validStatus = ['proximo', 'aberto', 'fechado', 'concluido', 'prorrogado'].includes(statusValue)
+      ? statusValue as 'proximo' | 'aberto' | 'fechado' | 'concluido' | 'prorrogado'
+      : 'aberto';
 
     const edital: Edital = {
       titulo: values[0] || '',
@@ -39,10 +44,11 @@ function parseCSVToEditais(csvText: string): Edital[] {
       link: values[2] || '',
       dataPublicacao: values[3] || '',
       dataEncerramentoPropostas: values[4] || '',
-      regional: values[5] || '',
-      tipoChamamento: values[6] || '',
-      tags: values[7] ? values[7].split('|').map(tag => tag.trim()) : [],
-      status: determineStatus(values[4])
+      dataFinalizacaoEdital: values[5] || '',
+      regional: values[6] || '',
+      tipoChamamento: values[7] || '',
+      unidadesPrisionais: values[8] ? values[8].split(',').map(u => u.trim()) : [],
+      status: validStatus
     };
 
     editais.push(edital);
@@ -73,27 +79,6 @@ function parseCSVLine(line: string): string[] {
   return result;
 }
 
-function determineStatus(dataEncerramento: string): 'proximo' | 'aberto' | 'fechado' | 'encerrado' | 'prorrogado' {
-  if (!dataEncerramento) return 'aberto';
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const parts = dataEncerramento.split('/');
-  if (parts.length !== 3) return 'aberto';
-
-  const endDate = new Date(
-    parseInt(parts[2]),
-    parseInt(parts[1]) - 1,
-    parseInt(parts[0])
-  );
-
-  const diffDays = Math.floor((endDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-
-  if (diffDays < 0) return 'fechado';
-  if (diffDays > 7) return 'proximo';
-  return 'aberto';
-}
 
 export function filterEditais(
   editais: Edital[],
@@ -104,7 +89,7 @@ export function filterEditais(
       return false;
     }
 
-    if (filters.unidadePrisional && !edital.tags.includes(filters.unidadePrisional)) {
+    if (filters.unidadePrisional && !edital.unidadesPrisionais.includes(filters.unidadePrisional)) {
       return false;
     }
 
@@ -117,7 +102,13 @@ export function filterEditais(
 }
 
 export function sortEditaisByStatus(editais: Edital[]): Edital[] {
-  const statusOrder = { proximo: 0, aberto: 1, emencerrado: 2 };
+  const statusOrder: Record<string, number> = {
+    proximo: 0,
+    aberto: 1,
+    prorrogado: 2,
+    fechado: 3,
+    concluido: 4
+  };
 
   return [...editais].sort((a, b) => {
     const statusDiff = statusOrder[a.status] - statusOrder[b.status];
@@ -140,10 +131,10 @@ function parseDate(dateString: string): Date {
   );
 }
 
-export function getUniqueValues(editais: Edital[], field: 'regional' | 'tipoChamamento' | 'tags'): string[] {
-  if (field === 'tags') {
-    const allTags = editais.flatMap(e => e.tags);
-    return Array.from(new Set(allTags)).sort();
+export function getUniqueValues(editais: Edital[], field: 'regional' | 'tipoChamamento' | 'unidadesPrisionais'): string[] {
+  if (field === 'unidadesPrisionais') {
+    const allUnidades = editais.flatMap(e => e.unidadesPrisionais);
+    return Array.from(new Set(allUnidades)).sort();
   }
 
   const values = editais.map(e => e[field]).filter(Boolean);

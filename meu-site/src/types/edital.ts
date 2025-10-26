@@ -4,9 +4,10 @@ export interface Edital {
   link: string;
   dataPublicacao: string;
   dataEncerramentoPropostas: string;
+  dataFinalizacaoEdital: string;
   regional: string;
   tipoChamamento: string;
-  tags: string[];
+  unidadesPrisionais: string[];
   status: 'proximo' | 'aberto' | 'fechado' | 'concluido' | 'prorrogado';
 }
 

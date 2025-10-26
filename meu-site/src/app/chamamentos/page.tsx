@@ -53,7 +53,7 @@ export default function ChamamentosPage() {
         setEditais(data);
         setFilteredEditais(sortEditaisByStatus(data));
         setRegionais(getUniqueValues(data, 'regional'));
-        setUnidades(getUniqueValues(data, 'tags'));
+        setUnidades(getUniqueValues(data, 'unidadesPrisionais'));
         setTipos(getUniqueValues(data, 'tipoChamamento'));
       }
     } catch (err) {
@@ -71,8 +71,9 @@ export default function ChamamentosPage() {
   };
 
   const proximosEditais = filteredEditais.filter(e => e.status === 'proximo');
-  const abertosEditais = filteredEditais.filter(e => e.status === 'aberto');
-  const fechadosEditais = filteredEditais.filter(e => e.status === 'fechado');
+  const abertosOuProrrogadosEditais = filteredEditais.filter(e => e.status === 'aberto' || e.status === 'prorrogado');
+  const emAndamentoEditais = filteredEditais.filter(e => e.status === 'fechado');
+  const concluidosEditais = filteredEditais.filter(e => e.status === 'concluido');
 
   return (
     <main className="min-h-screen bg-gray-100 pb-16"> {/* Fundo mais claro e padding inferior */}
@@ -154,24 +155,36 @@ export default function ChamamentosPage() {
               </div>
             )}
 
-            {/* Editais Abertos */}
-            {abertosEditais.length > 0 && (
+            {/* Editais Abertos ou Prorrogados */}
+            {abertosOuProrrogadosEditais.length > 0 && (
               <div className="mb-12">
                 <h2 className="text-3xl font-extrabold text-gray-900 mb-6 border-b pb-3 border-green-200">Chamamentos Abertos</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"> {/* Ajuste aqui para até 4 colunas */}
-                  {abertosEditais.map((edital, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {abertosOuProrrogadosEditais.map((edital, index) => (
                     <EditalCard key={index} edital={edital} />
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Editais Fechados */}
-            {fechadosEditais.length > 0 && (
+            {/* Editais em Andamento (Fechados) */}
+            {emAndamentoEditais.length > 0 && (
               <div className="mb-12">
-                <h2 className="text-3xl font-extrabold text-gray-900 mb-6 border-b pb-3 border-gray-300">Chamamentos Encerrados</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"> {/* Ajuste aqui para até 4 colunas */}
-                  {fechadosEditais.map((edital, index) => (
+                <h2 className="text-3xl font-extrabold text-gray-900 mb-6 border-b pb-3 border-yellow-200">Chamamentos em Andamento</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {emAndamentoEditais.map((edital, index) => (
+                    <EditalCard key={index} edital={edital} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Editais Concluídos */}
+            {concluidosEditais.length > 0 && (
+              <div className="mb-12">
+                <h2 className="text-3xl font-extrabold text-gray-900 mb-6 border-b pb-3 border-gray-300">Chamamentos Finalizados</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {concluidosEditais.map((edital, index) => (
                     <EditalCard key={index} edital={edital} />
                   ))}
                 </div>

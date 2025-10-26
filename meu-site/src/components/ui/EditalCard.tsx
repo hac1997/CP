@@ -5,7 +5,7 @@ interface EditalCardProps {
   edital: Edital;
 }
 
-const statusConfig = {
+const statusConfig: Record<string, { label: string; bgColor: string; textColor: string; borderColor: string }> = {
   proximo: {
     label: 'Próximo',
     bgColor: 'bg-blue-100',
@@ -18,8 +18,20 @@ const statusConfig = {
     textColor: 'text-green-800',
     borderColor: 'border-green-300'
   },
+  prorrogado: {
+    label: 'Prorrogado',
+    bgColor: 'bg-green-100',
+    textColor: 'text-green-800',
+    borderColor: 'border-green-300'
+  },
   fechado: {
-    label: 'Fechado',
+    label: 'Em Andamento',
+    bgColor: 'bg-yellow-100',
+    textColor: 'text-yellow-800',
+    borderColor: 'border-yellow-300'
+  },
+  concluido: {
+    label: 'Finalizado',
     bgColor: 'bg-gray-100',
     textColor: 'text-gray-800',
     borderColor: 'border-gray-300'
@@ -27,7 +39,7 @@ const statusConfig = {
 };
 
 export const EditalCard: React.FC<EditalCardProps> = ({ edital }) => {
-  const config = statusConfig[edital.status];
+  const config = statusConfig[edital.status] || statusConfig.aberto;
 
   return (
     <div className={`bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 border-l-4 ${config.borderColor}`}>
@@ -59,16 +71,19 @@ export const EditalCard: React.FC<EditalCardProps> = ({ edital }) => {
         </div>
       </div>
 
-      {edital.tags.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-4">
-          {edital.tags.map((tag, index) => (
-            <span
-              key={index}
-              className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs"
-            >
-              {tag}
-            </span>
-          ))}
+      {edital.unidadesPrisionais.length > 0 && (
+        <div className="mb-4">
+          <span className="font-semibold text-gray-700 text-sm block mb-2">Unidades Prisionais:</span>
+          <div className="flex flex-wrap gap-2">
+            {edital.unidadesPrisionais.map((unidade, index) => (
+              <span
+                key={index}
+                className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs"
+              >
+                {unidade}
+              </span>
+            ))}
+          </div>
         </div>
       )}
 
