@@ -73,7 +73,7 @@ function parseCSVLine(line: string): string[] {
   return result;
 }
 
-function determineStatus(dataEncerramento: string): 'proximo' | 'aberto' | 'fechado' {
+function determineStatus(dataEncerramento: string): 'proximo' | 'aberto' | 'fechado' | 'encerrado' | 'prorrogado' {
   if (!dataEncerramento) return 'aberto';
 
   const today = new Date();
@@ -117,7 +117,7 @@ export function filterEditais(
 }
 
 export function sortEditaisByStatus(editais: Edital[]): Edital[] {
-  const statusOrder = { proximo: 0, aberto: 1, fechado: 2 };
+  const statusOrder = { proximo: 0, aberto: 1, emencerrado: 2 };
 
   return [...editais].sort((a, b) => {
     const statusDiff = statusOrder[a.status] - statusOrder[b.status];

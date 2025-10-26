@@ -7,7 +7,7 @@ export interface Edital {
   regional: string;
   tipoChamamento: string;
   tags: string[];
-  status: 'proximo' | 'aberto' | 'fechado';
+  status: 'proximo' | 'aberto' | 'fechado' | 'concluido' | 'prorrogado';
 }
 
 export interface EditalFilters {

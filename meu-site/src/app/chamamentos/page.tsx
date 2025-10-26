@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { FaBullhorn, FaFilter } from 'react-icons/fa';
+import { FaBullhorn, FaFilter } from 'react-icons/fa'; // Mantido, mas FaBullhorn será para o título
 import { Edital } from '@/types/edital';
 import { EditalCard } from '@/components/ui/EditalCard';
 import { FilterBar } from '@/components/ui/FilterBar';
@@ -75,20 +75,22 @@ export default function ChamamentosPage() {
   const fechadosEditais = filteredEditais.filter(e => e.status === 'fechado');
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <section className="bg-gradient-to-r from-blue-700 to-blue-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-6">
-          <h1 className="text-4xl font-bold mb-4 flex items-center gap-3">
-            <FaBullhorn className="text-3xl" />
+    <main className="min-h-screen bg-gray-100 pb-16"> {/* Fundo mais claro e padding inferior */}
+      {/* Banner/Título da Página */}
+      <section className="relative bg-gradient-to-br from-blue-800 via-blue-900 to-blue-950 text-white py-6 overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[length:20px_20px]"></div>
+        <div className="relative max-w-7xl mx-auto px-6 text-center">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3 drop-shadow-lg">
             Chamamentos Públicos
           </h1>
-          <p className="text-xl text-blue-100">
-            Acompanhe os editais de chamamento público para parcerias laborais
+          <p className="text-base md:text-xl text-blue-100 leading-relaxed max-w-3xl mx-auto">
+            Acompanhe os chamamentos públicos abertos, próximos e encerrados pelo departamento.
           </p>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-12">
+
+      <section className="max-w-7xl mx-auto px-6 py-4"> {/* Removi o py-12 para ajustar o espaçamento após o banner */}
         {loading ? (
           <div className="bg-white rounded-lg shadow-md p-12 text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
@@ -112,10 +114,11 @@ export default function ChamamentosPage() {
           </div>
         ) : (
           <>
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            {/* Seção de Filtros */}
+            <div className="mb-10 p-6 bg-white shadow-sm rounded-lg"> {/* Card para os filtros */}
+              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
                 <FaFilter className="text-blue-600" />
-                Filtros
+                Filtrar Chamamentos
               </h2>
               <FilterBar
                 regionais={regionais}
@@ -131,17 +134,19 @@ export default function ChamamentosPage() {
               />
             </div>
 
-            <div className="mb-6 bg-blue-50 border-l-4 border-blue-600 p-4">
+            {/* Total de Editais */}
+            <div className="mb-8 bg-blue-50 border-l-4 border-blue-600 p-4 rounded-md">
               <p className="text-gray-700">
                 <strong>Total de editais encontrados:</strong> {filteredEditais.length}
                 {(selectedRegional || selectedUnidade || selectedTipo) && ' (filtrados)'}
               </p>
             </div>
 
+            {/* Próximos Editais */}
             {proximosEditais.length > 0 && (
               <div className="mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Próximos</h2>
-                <div className="grid grid-cols-1 gap-6">
+                <h2 className="text-3xl font-extrabold text-gray-900 mb-6 border-b pb-3 border-blue-200">Próximos Chamamentos</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"> {/* Ajuste aqui para até 4 colunas */}
                   {proximosEditais.map((edital, index) => (
                     <EditalCard key={index} edital={edital} />
                   ))}
@@ -149,10 +154,11 @@ export default function ChamamentosPage() {
               </div>
             )}
 
+            {/* Editais Abertos */}
             {abertosEditais.length > 0 && (
               <div className="mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Abertos</h2>
-                <div className="grid grid-cols-1 gap-6">
+                <h2 className="text-3xl font-extrabold text-gray-900 mb-6 border-b pb-3 border-green-200">Chamamentos Abertos</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"> {/* Ajuste aqui para até 4 colunas */}
                   {abertosEditais.map((edital, index) => (
                     <EditalCard key={index} edital={edital} />
                   ))}
@@ -160,10 +166,11 @@ export default function ChamamentosPage() {
               </div>
             )}
 
+            {/* Editais Fechados */}
             {fechadosEditais.length > 0 && (
               <div className="mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Fechados</h2>
-                <div className="grid grid-cols-1 gap-6">
+                <h2 className="text-3xl font-extrabold text-gray-900 mb-6 border-b pb-3 border-gray-300">Chamamentos Encerrados</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"> {/* Ajuste aqui para até 4 colunas */}
                   {fechadosEditais.map((edital, index) => (
                     <EditalCard key={index} edital={edital} />
                   ))}
@@ -171,12 +178,13 @@ export default function ChamamentosPage() {
               </div>
             )}
 
+            {/* Nenhum Edital Encontrado */}
             {filteredEditais.length === 0 && !loading && !error && (
               <div className="bg-white rounded-lg shadow-md p-12 text-center">
                 <FaBullhorn className="text-6xl text-gray-300 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Nenhum edital encontrado</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Nenhum chamamento encontrado</h3>
                 <p className="text-gray-600">
-                  Não há editais que correspondam aos filtros selecionados.
+                  Não há chamamentos que correspondam aos filtros selecionados.
                 </p>
                 {(selectedRegional || selectedUnidade || selectedTipo) && (
                   <button
