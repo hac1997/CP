@@ -1,71 +1,150 @@
 import React from 'react';
-import { FaHandshake, FaCheckCircle, FaGavel, FaBriefcase, FaUserCheck, FaClipboardList, FaBuilding } from 'react-icons/fa';
+import { FaHandshake, FaCheckCircle, FaGavel, FaBriefcase, FaClipboardList, FaIndustry } from 'react-icons/fa';
 
 export default function ParceriasLaboraisPage() {
   return (
     <main className="min-h-screen bg-gray-50">
-
       <section className="max-w-7xl mx-auto px-6 py-12">
         <div className="bg-white rounded-lg shadow-md p-8 mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
             <FaHandshake className="text-green-600" />
-            O que são Parcerias Laborais
+            O que são as Parcerias Laborais
           </h2>
           <p className="text-gray-700 leading-relaxed text-lg mb-4">
-            As parcerias laborais são acordos entre o Estado de Santa Catarina e empresas públicas ou privadas
-            que desejam oferecer oportunidades de trabalho a pessoas privadas de liberdade. Este programa visa
-            a ressocialização dos internos através do trabalho, proporcionando qualificação profissional,
-            remuneração e redução da pena através da remição.
+            As Parcerias Laborais são acordos firmados entre a Secretaria de Estado da Justiça e Reintegração Social e parceiros públicos ou privados interessados em utilizar a mão de obra prisional em atividades dentro ou fora das unidades penais.
+          </p>
+          <p className="text-gray-700 leading-relaxed text-lg mb-4">
+            Atualmente, o Estado possui cerca de <strong>200 Termos de Parceria Laboral ativos</strong>, sendo 150 com empresas privadas e outros 50 com municípios, empresas públicas e OSCs.
           </p>
           <p className="text-gray-700 leading-relaxed text-lg">
-            O trabalho prisional não apenas contribui para a reinserção social do interno, mas também beneficia
-            a sociedade ao reduzir a reincidência criminal e preparar indivíduos para o retorno ao convívio social.
+            Os presos atuam em diversas atividades, como limpeza urbana, produção de móveis e estofados, montagem de eletrônicos e eletrodomésticos, confecção têxtil, fabricação de EPIs, componentes plásticos, ferragens, panificação e até construção de embarcações.
           </p>
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-8 mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <FaIndustry className="text-green-600" />
+            O Trabalho no Sistema Prisional Catarinense
+          </h2>
+          <p className="text-gray-700 leading-relaxed text-lg mb-4">
+            O trabalho no sistema prisional catarinense caracteriza-se pela sua natureza profissional, abrangendo diversas indústrias e linhas de produção, com destaque para o setor têxtil, embora também sejam fabricados uma ampla variedade de produtos.
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-4">Produtos Fabricados:</h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <p className="text-gray-800">Fogões</p>
+            </div>
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <p className="text-gray-800">Ventiladores</p>
+            </div>
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <p className="text-gray-800">Fornos</p>
+            </div>
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <p className="text-gray-800">Chuveiros</p>
+            </div>
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <p className="text-gray-800">Motores elétricos</p>
+            </div>
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <p className="text-gray-800">Liquidificadores</p>
+            </div>
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <p className="text-gray-800">Fechaduras magnéticas</p>
+            </div>
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <p className="text-gray-800">Telefones</p>
+            </div>
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <p className="text-gray-800">Estofados</p>
+            </div>
+            <div className="bg-gray-50 p-3 rounded-lg">
+              <p className="text-gray-800">Embarcações</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <FaBriefcase className="text-green-600" />
+            Sobre o Trabalho do Preso
+          </h2>
+          <div className="space-y-4">
+            <p className="text-gray-700 leading-relaxed">
+              A Lei de Execuções Penais, em seu art. 31, impõe a <strong>obrigatoriedade de trabalho para condenados a penas privativas de liberdade</strong>, de acordo com suas aptidões e capacidade, diferenciando-se da situação do preso provisório, para quem a atividade laboral não é compulsória e está restrita ao ambiente carcerário.
+            </p>
+            <p className="text-gray-700 leading-relaxed">
+              Sua jornada de trabalho é estabelecida entre <strong>6 e 8 horas</strong>, com repouso remunerado aos domingos e feriados.
+            </p>
+            <p className="text-gray-700 leading-relaxed">
+              A inclusão do preso no ambiente profissional não apenas atende a requisitos legais, mas desempenha um papel fundamental na <strong>ressocialização</strong>, oportunizando qualificação e experiência para a preparação do indivíduo após o cumprimento de sua pena, quando posto em liberdade, numa perspectiva educativa e produtiva do trabalho no contexto prisional.
+            </p>
+            <p className="text-gray-700 leading-relaxed">
+              Assim, temos que as parcerias são de interesse do próprio preso, pois além de adquirirem uma profissão, têm no trabalho uma fonte de renda para si e suas famílias, além de terem <strong>um dia de remição de pena a cada três dias trabalhados</strong>.
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
             <FaCheckCircle className="text-green-600" />
-            Vantagens
+            Vantagens da Parceria
           </h2>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <p className="text-gray-700 leading-relaxed mb-6">
+            A principal vantagem da mão de obra carcerária é o <strong>baixo custo</strong>, pois não há vínculo empregatício formal entre empresas e presos. Isso elimina encargos sociais obrigatórios na contratação pelo setor privado, como:
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
             <div className="border-l-4 border-green-600 pl-6 py-2">
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Para as Empresas</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Encargos Eliminados</h3>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-start gap-2">
                   <span className="text-green-600 mt-1">•</span>
-                  <span>Responsabilidade social corporativa</span>
+                  <span>FGTS</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-600 mt-1">•</span>
-                  <span>Mão de obra qualificada e comprometida</span>
+                  <span>Aviso prévio</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-600 mt-1">•</span>
-                  <span>Redução de custos operacionais</span>
+                  <span>Indenizações</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-600 mt-1">•</span>
-                  <span>Incentivos fiscais previstos em lei</span>
+                  <span>Férias</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-600 mt-1">•</span>
-                  <span>Contribuição para a ressocialização</span>
+                  <span>Auxílio-doença</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-600 mt-1">•</span>
+                  <span>13º salário</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-600 mt-1">•</span>
+                  <span>Contribuição previdenciária</span>
                 </li>
               </ul>
             </div>
 
             <div className="border-l-4 border-blue-600 pl-6 py-2">
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Para os Internos</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Benefícios para os Presos</h3>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-start gap-2">
                   <span className="text-blue-600 mt-1">•</span>
-                  <span>Remição da pena pelo trabalho</span>
+                  <span>Adquirem uma profissão</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-blue-600 mt-1">•</span>
-                  <span>Remuneração e suporte financeiro à família</span>
+                  <span>Fonte de renda para si e suas famílias</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-600 mt-1">•</span>
+                  <span>Um dia de remição de pena a cada três dias trabalhados</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-blue-600 mt-1">•</span>
@@ -73,13 +152,37 @@ export default function ParceriasLaboraisPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-blue-600 mt-1">•</span>
-                  <span>Desenvolvimento de habilidades</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-blue-600 mt-1">•</span>
                   <span>Preparação para reinserção no mercado</span>
                 </li>
               </ul>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 border-l-4 border-blue-600 p-6">
+            <p className="text-gray-800">
+              <strong>Economia adicional:</strong> Empresas com oficinas dentro das unidades penais também economizam em custos com <strong>aluguel e IPTU</strong>, já que os espaços são disponibilizados aos parceiros privados durante a vigência da Parceria Laboral para a implantação de oficinas de trabalho.
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+            <FaClipboardList className="text-green-600" />
+            Me Interessei, Quero Participar! Como Proceder?
+          </h2>
+
+          <div className="space-y-4">
+            <p className="text-gray-700 leading-relaxed text-lg mb-4">
+              As Parcerias Laborais com o Sistema Prisional Catarinense são formalizadas por meio dos <strong>Termos de Parceria Laboral</strong> celebrados após o lançamento dos <strong>Editais de Processo Público de Seleção</strong> (também chamados de Chamamentos Públicos).
+            </p>
+
+            <div className="bg-green-50 border-l-4 border-green-600 p-6">
+              <p className="text-gray-800 text-lg mb-4">
+                Os interessados em celebrar uma Parceria Laboral com o Estado deverão se inscrever nos certames. Todos os Editais são publicados no site da Secretaria de Justiça e Reintegração Social de Santa Catarina.
+              </p>
+              <p className="text-gray-800 text-lg font-semibold">
+                Para mais informações, acessar a página <a href="/chamamentos" className="text-green-700 hover:text-green-800 underline">Chamamentos Públicos</a>
+              </p>
             </div>
           </div>
         </div>
@@ -91,193 +194,18 @@ export default function ParceriasLaboraisPage() {
           </h2>
           <div className="space-y-4">
             <p className="text-gray-700 leading-relaxed">
-              O trabalho prisional é regulamentado pela <strong>Lei de Execução Penal (Lei nº 7.210/1984)</strong>,
-              que estabelece os direitos e deveres dos internos, bem como as condições para o trabalho no
-              sistema prisional.
+              O trabalho prisional é regulamentado pela <strong>Lei de Execuções Penais (Lei nº 7.210/1984)</strong>, especificamente no <strong>art. 31</strong>, que estabelece a obrigatoriedade do trabalho para condenados a penas privativas de liberdade.
             </p>
             <p className="text-gray-700 leading-relaxed">
-              Em Santa Catarina, a <strong>Lei Estadual nº 18.513/2023</strong> dispõe sobre a política de
-              trabalho e renda no sistema prisional, estabelecendo diretrizes específicas para as parcerias laborais.
+              A lei define os direitos e deveres dos internos, bem como as condições para o trabalho no sistema prisional, incluindo jornada de trabalho de 6 a 8 horas e repouso remunerado aos domingos e feriados.
             </p>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-            <FaBriefcase className="text-green-600" />
-            Formas de Trabalho
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Trabalho Interno</h3>
-              <p className="text-gray-700">
-                Atividades realizadas dentro das unidades prisionais, como produção, manufatura e serviços gerais.
-              </p>
-            </div>
-
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Trabalho Externo</h3>
-              <p className="text-gray-700">
-                Para internos em regime semiaberto ou progressão de regime, com atividades realizadas fora da unidade.
-              </p>
-            </div>
-
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Serviços de Apoio</h3>
-              <p className="text-gray-700">
-                Atividades de manutenção, limpeza, cozinha e outras funções de apoio ao funcionamento da unidade.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-            <FaUserCheck className="text-green-600" />
-            Como Ocorre a Seleção dos Presos
-          </h2>
-
-          <div className="space-y-6">
-            <div className="flex items-start gap-4">
-              <div className="bg-green-100 text-green-800 rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0">
-                1
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Avaliação de Elegibilidade</h4>
-                <p className="text-gray-700">
-                  Análise do regime prisional, comportamento, tempo de pena cumprida e requisitos legais.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="bg-green-100 text-green-800 rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0">
-                2
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Perfil Profissional</h4>
-                <p className="text-gray-700">
-                  Avaliação das habilidades, experiência e adequação do interno às vagas disponíveis.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="bg-green-100 text-green-800 rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0">
-                3
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Entrevista e Seleção</h4>
-                <p className="text-gray-700">
-                  Processo seletivo conduzido pela empresa parceira com acompanhamento do departamento.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="bg-green-100 text-green-800 rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0">
-                4
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Acompanhamento</h4>
-                <p className="text-gray-700">
-                  Monitoramento contínuo do desempenho e adaptação do interno à atividade laboral.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-            <FaClipboardList className="text-green-600" />
-            Como Celebrar uma Parceria Laboral
-          </h2>
-
-          <div className="space-y-4">
-            <p className="text-gray-700 leading-relaxed text-lg">
-              Empresas interessadas em estabelecer parcerias laborais devem seguir os seguintes passos:
-            </p>
-
-            <div className="bg-blue-50 border-l-4 border-blue-600 p-6 space-y-3">
-              <div className="flex items-start gap-3">
-                <span className="text-blue-600 font-bold">1.</span>
-                <p className="text-gray-800">
-                  Entrar em contato com o Departamento de Trabalho e Renda Prisional através dos canais oficiais
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-blue-600 font-bold">2.</span>
-                <p className="text-gray-800">
-                  Apresentar proposta detalhando tipo de atividade, número de vagas, qualificações necessárias e local de trabalho
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-blue-600 font-bold">3.</span>
-                <p className="text-gray-800">
-                  Análise técnica da proposta pelo departamento
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-blue-600 font-bold">4.</span>
-                <p className="text-gray-800">
-                  Formalização através de convênio ou termo de cooperação
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-blue-600 font-bold">5.</span>
-                <p className="text-gray-800">
-                  Processo de seleção dos internos e início das atividades
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-            <FaBuilding className="text-green-600" />
-            Lista de Empresas Parceiras
-          </h2>
-          <p className="text-gray-700 leading-relaxed mb-6">
-            Atualmente, contamos com 67 empresas parceiras que oferecem oportunidades de trabalho em diversos
-            setores, incluindo:
-          </p>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Indústria</h4>
-              <p className="text-sm text-gray-600">Manufatura e produção</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Serviços</h4>
-              <p className="text-sm text-gray-600">Diversos segmentos</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Construção Civil</h4>
-              <p className="text-sm text-gray-600">Obras e reformas</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Agricultura</h4>
-              <p className="text-sm text-gray-600">Cultivo e manejo</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Reciclagem</h4>
-              <p className="text-sm text-gray-600">Coleta e processamento</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-gray-900">Artesanato</h4>
-              <p className="text-sm text-gray-600">Produção artesanal</p>
-            </div>
           </div>
         </div>
 
         <div className="bg-gradient-to-r from-green-600 to-green-800 text-white rounded-lg shadow-md p-8">
           <h2 className="text-2xl font-bold mb-4">Mais Informações</h2>
           <p className="text-green-100 mb-6">
-            Para mais detalhes sobre como participar do programa de parcerias laborais ou se tornar uma empresa
-            parceira, acesse a página de chamamentos públicos.
+            Para mais detalhes sobre como participar do programa de parcerias laborais ou se tornar uma empresa parceira, acesse a página de chamamentos públicos.
           </p>
           <a
             href="/chamamentos"
