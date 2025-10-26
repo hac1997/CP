@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Meu Site com Footer SC",
-  description: "Exemplo de footer do Governo de Santa Catarina",
+  title: "Departamento de Trabalho e Renda Prisional - SEJURI/SC",
+  description: "Portal do Departamento de Trabalho e Renda Prisional da Secretaria de Estado de Justiça e Reintegração Social de Santa Catarina",
 };
 
 export default function RootLayout({
@@ -25,11 +25,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}      >
-        <Header/>
-        {children}
-                <main className="flex-grow">{children}</main>
+    <html lang="pt-BR">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
+        <Header />
+        <main className="flex-grow">{children}</main>
         <Footer />
       </body>
     </html>
