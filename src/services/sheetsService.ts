@@ -1,5 +1,9 @@
+// src/services/editalService.ts  (ou sheetsService.ts)
 import { Edital } from '@/types/edital';
 
+/**
+ * Busca editais da planilha pública do Google Sheets
+ */
 export async function fetchEditaisFromSheets(): Promise<Edital[]> {
   try {
     const response = await fetch(
@@ -11,16 +15,17 @@ export async function fetchEditaisFromSheets(): Promise<Edital[]> {
     }
 
     const csvText = await response.text();
-    const editais = parseCSVToEditais(csvText);
-
-    return editais;
+    return parseCSVToEditais(csvText);
   } catch (error) {
     console.error('Erro ao buscar editais:', error);
     return [];
   }
 }
 
-function parseCSVToEditais(csvText: string): Edital[] {
+/**
+ * Converte CSV em array de Editais
+ */
+export function parseCSVToEditais(csvText: string): Edital[] {
   const lines = csvText.split('\n');
   const editais: Edital[] = [];
 
@@ -54,7 +59,10 @@ function parseCSVToEditais(csvText: string): Edital[] {
   return editais;
 }
 
-function parseCSVLine(line: string): string[] {
+/**
+ * Parser CSV robusto (suporta aspas e vírgulas internas)
+ */
+export function parseCSVLine(line: string): string[] {
   const result: string[] = [];
   let current = '';
   let inQuotes = false;
@@ -74,6 +82,9 @@ function parseCSVLine(line: string): string[] {
   return result;
 }
 
+/**
+ * Filtra editais por critérios
+ */
 export function filterEditais(
   editais: Edital[],
   filters: { regional?: string; unidadePrisional?: string; tipo?: string }
@@ -86,6 +97,9 @@ export function filterEditais(
   });
 }
 
+/**
+ * Ordena editais por status e data
+ */
 export function sortEditaisByStatus(editais: Edital[]): Edital[] {
   const statusOrder: Record<string, number> = {
     proximo: 0,
@@ -105,7 +119,10 @@ export function sortEditaisByStatus(editais: Edital[]): Edital[] {
   });
 }
 
-function parseDate(dateString: string): Date {
+/**
+ * Converte string DD/MM/AAAA → Date
+ */
+export function parseDate(dateString: string): Date {
   const parts = dateString.split('/');
   if (parts.length !== 3) return new Date();
 
@@ -116,6 +133,9 @@ function parseDate(dateString: string): Date {
   );
 }
 
+/**
+ * Extrai valores únicos de um campo
+ */
 export function getUniqueValues(
   editais: Edital[],
   field: 'regional' | 'tipoChamamento' | 'unidadesPrisionais'
@@ -125,6 +145,6 @@ export function getUniqueValues(
     return Array.from(new Set(allUnidades)).sort((a, b) => a.localeCompare(b));
   }
 
-  const values = editais.map(e => e[field]).filter(Boolean);
+  const values = editais.map(e => e[field]).filter(Boolean) as string[];
   return Array.from(new Set(values)).sort((a, b) => a.localeCompare(b));
 }

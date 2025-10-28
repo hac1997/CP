@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFileAlt } from 'react-icons/fa';
+import { FaBookOpen, FaFileAlt } from 'react-icons/fa';
 
 export default function OrientacoesPage() {
   return (
