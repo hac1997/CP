@@ -8,7 +8,7 @@ import {
 
 export default function ParceriasLaboraisPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+    <main className="min-h-screen bg-linear-to-b from-gray-50 to-gray-100">
       <section className="max-w-6xl mx-auto px-6 py-16 space-y-12">
         {/* Introdução */}
         <div className="bg-white rounded-2xl shadow-lg p-10 transition hover:shadow-xl">
@@ -53,9 +53,7 @@ export default function ParceriasLaboraisPage() {
               A Lei de Execuções Penais, em seu art. 31, impõe a{" "}
               <strong>
                 obrigatoriedade de trabalho para condenados a penas privativas
-                de liberdade
-              </strong>
-              , de acordo com suas aptidões e capacidade, diferenciando-se da
+                de liberdade</strong>, de acordo com suas aptidões e capacidade, diferenciando-se da
               situação do preso provisório, para quem a atividade laboral não é
               compulsória.
             </p>
@@ -171,8 +169,7 @@ export default function ParceriasLaboraisPage() {
                 className="text-green-700 hover:text-green-800 underline font-bold"
               >
                 Chamamentos Públicos
-              </a>
-              .
+              </a>.
             </p>
           </div>
         </div>

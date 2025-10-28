@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { FaBullhorn, FaFilter } from 'react-icons/fa'; // Mantido, mas FaBullhorn será para o título
+import { FaBullhorn, FaFilter } from 'react-icons/fa';
 import { Edital } from '@/types/edital';
 import { EditalCard } from '@/components/ui/EditalCard';
 import { FilterBar } from '@/components/ui/FilterBar';
@@ -76,12 +76,18 @@ export default function ChamamentosPage() {
   const emAndamentoEditais = filteredEditais.filter(e => e.status === 'fechado');
   const concluidosEditais = filteredEditais.filter(e => e.status === 'concluido');
 
+  const hasFilters = selectedRegional || selectedUnidade || selectedTipo;
+  const totalFound = filteredEditais.length;
+  const foundLabel = totalFound === 1 ? 'Edital encontrado' : 'Editais encontrados';
+
+  const makeKey = (e: Edital) => `${e.titulo}-${e.dataPublicacao}-${e.regional}`;
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 pb-16">
-      {/* Banner/Título da Página */}
-      <section className="relative bg-gradient-to-br from-blue-800 via-blue-900 to-blue-950 text-white py-6 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[length:20px_20px]">          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,_rgba(255,255,255,0.1)_0%,_transparent_50%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,_rgba(255,255,255,0.1)_0%,_transparent_50%)]" />
+    <main className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50 pb-16">
+      <section className="relative bg-linear-to-br from-blue-800 via-blue-900 to-blue-950 text-white py-6 overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,white_1px,transparent_1px)] bg-size-[20px_20px]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.1)_0%,transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.1)_0%,transparent_50%)]" />
         </div>
         <div className="relative max-w-7xl mx-auto px-6 text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 drop-shadow-lg">
@@ -93,17 +99,18 @@ export default function ChamamentosPage() {
         </div>
       </section>
 
-
       <section className="max-w-7xl mx-auto px-6 py-8">
-        {loading ? (
+        {loading && (
           <div className="bg-white rounded-2xl shadow-lg p-16 text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent mx-auto mb-4"></div>
             <p className="text-gray-600 text-lg font-medium">Carregando editais...</p>
           </div>
-        ) : error ? (
+        )}
+
+        {error && (
           <div className="bg-white rounded-2xl shadow-lg border-l-4 border-red-500 p-8">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center shrink-0">
                 <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
@@ -120,27 +127,26 @@ export default function ChamamentosPage() {
               </div>
             </div>
           </div>
-        ) : (
+        )}
+
+        {!loading && !error && (
           <>
-            {/* Seção de Filtros + Contador */}
             <div className="mb-10 p-6 bg-white shadow-lg rounded-2xl border border-gray-100">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-                {/* Título com ícone */}
                 <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
                     <FaFilter className="text-blue-600" />
                   </div>
                   Filtrar Chamamentos
                 </h2>
 
-                {/* Contador de Editais */}
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-sm">
-                    <span className="text-white font-bold text-base">{filteredEditais.length}</span>
+                  <div className="w-9 h-9 bg-linear-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-sm">
+                    <span className="text-white font-bold text-base">{totalFound}</span>
                   </div>
                   <p className="text-gray-700 font-medium text-sm sm:text-base">
-                    {filteredEditais.length === 1 ? 'Edital encontrado' : 'Editais encontrados'}
-                    {(selectedRegional || selectedUnidade || selectedTipo) && (
+                    {foundLabel}
+                    {hasFilters && (
                       <span className="ml-2 inline-block text-xs bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full border border-blue-200 font-medium">
                         Filtrado
                       </span>
@@ -149,7 +155,6 @@ export default function ChamamentosPage() {
                 </div>
               </div>
 
-              {/* FilterBar */}
               <FilterBar
                 regionais={regionais}
                 unidades={unidades}
@@ -163,29 +168,24 @@ export default function ChamamentosPage() {
                 onClearFilters={handleClearFilters}
               />
             </div>
-            {/* Próximos Editais */}
+
             {proximosEditais.length > 0 && (
-              // Adicionamos 'z-10' na section para definir um contexto de empilhamento.
-              // O próximo header (abertos) terá z-20.
               <section className="mb-0 relative">
-                <SectionBannerTitle title="Próximos Chamamentos" stickyTop="top-32" zIndex={20} />
+                <SectionBannerTitle title="Próximos Chamamentos" />
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 px-6 max-w-7xl mx-auto">
-                  {proximosEditais.map((edital, index) => (
-                    <EditalCard key={index} edital={edital} />
+                  {proximosEditais.map(edital => (
+                    <EditalCard key={makeKey(edital)} edital={edital} />
                   ))}
                 </div>
               </section>
             )}
 
-
-            {/* Abertos ou Prorrogados */}
             {abertosOuProrrogadosEditais.length > 0 && (
-              // Z-index maior para garantir que ele passe por cima do 'Proximos' (z-10)
               <section className="mb-0 relative">
-                <SectionBannerTitle title="Chamamentos Abertos" stickyTop="top-32" zIndex={30} />
+                <SectionBannerTitle title="Chamamentos Abertos" />
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-                  {abertosOuProrrogadosEditais.map((edital, index) => (
-                    <EditalCard key={index} edital={edital} />
+                  {abertosOuProrrogadosEditais.map(edital => (
+                    <EditalCard key={makeKey(edital)} edital={edital} />
                   ))}
                 </div>
               </section>
@@ -193,29 +193,27 @@ export default function ChamamentosPage() {
 
             {emAndamentoEditais.length > 0 && (
               <section className="mb-0 relative">
-                <SectionBannerTitle title="Chamamentos em Andamento" stickyTop="top-32" zIndex={40} />
+                <SectionBannerTitle title="Chamamentos em Andamento" />
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 px-6 max-w-7xl mx-auto">
-                  {emAndamentoEditais.map((edital, index) => (
-                    <EditalCard key={index} edital={edital} />
+                  {emAndamentoEditais.map(edital => (
+                    <EditalCard key={makeKey(edital)} edital={edital} />
                   ))}
                 </div>
               </section>
             )}
 
-            {/* Concluídos */}
             {concluidosEditais.length > 0 && (
               <section className="mb-0 relative">
-                <SectionBannerTitle title="Chamamentos Finalizados" stickyTop="top-32" zIndex={50} />
+                <SectionBannerTitle title="Chamamentos Finalizados" />
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-                  {concluidosEditais.map((edital, index) => (
-                    <EditalCard key={index} edital={edital} />
+                  {concluidosEditais.map(edital => (
+                    <EditalCard key={makeKey(edital)} edital={edital} />
                   ))}
                 </div>
               </section>
             )}
 
-            {/* Nenhum Edital Encontrado */}
-            {filteredEditais.length === 0 && !loading && !error && (
+            {filteredEditais.length === 0 && (
               <div className="bg-white rounded-2xl shadow-lg p-16 text-center">
                 <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <FaBullhorn className="text-5xl text-gray-400" />
@@ -224,7 +222,7 @@ export default function ChamamentosPage() {
                 <p className="text-gray-600 mb-6 max-w-md mx-auto">
                   Não há chamamentos que correspondam aos filtros selecionados.
                 </p>
-                {(selectedRegional || selectedUnidade || selectedTipo) && (
+                {hasFilters && (
                   <button
                     onClick={handleClearFilters}
                     className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all hover:shadow-lg font-medium"

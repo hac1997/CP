@@ -1,5 +1,7 @@
+"use client";
+
 import React from 'react';
-import { FaAward, FaCog, FaHeart, FaHammer, FaSeedling } from 'react-icons/fa';
+import { FaCog, FaHeart, FaHammer, FaSeedling } from 'react-icons/fa';
 
 export default function BoasPraticasPage() {
   return (
@@ -80,42 +82,42 @@ export default function BoasPraticasPage() {
           </p>
 
           <div className="grid md:grid-cols-3 gap-6 mb-6">
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
+            <div className="bg-linear-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
               <h4 className="font-bold text-blue-900 mb-3 text-lg">Marcenaria</h4>
               <p className="text-gray-700 text-sm">
                 Produção de móveis e artefatos de madeira com qualidade e acabamento profissional.
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+            <div className="bg-linear-to-br from-green-50 to-green-100 p-6 rounded-lg">
               <h4 className="font-bold text-green-900 mb-3 text-lg">Serralheria</h4>
               <p className="text-gray-700 text-sm">
                 Fabricação de estruturas metálicas, portões e peças em metal.
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-lg">
+            <div className="bg-linear-to-br from-yellow-50 to-yellow-100 p-6 rounded-lg">
               <h4 className="font-bold text-yellow-900 mb-3 text-lg">Costura</h4>
               <p className="text-gray-700 text-sm">
                 Confecção de uniformes, roupas e produtos têxteis diversos.
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg">
+            <div className="bg-linear-to-br from-red-50 to-red-100 p-6 rounded-lg">
               <h4 className="font-bold text-red-900 mb-3 text-lg">Artesanato</h4>
               <p className="text-gray-700 text-sm">
                 Produção de peças artesanais e trabalhos manuais diferenciados.
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
+            <div className="bg-linear-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
               <h4 className="font-bold text-purple-900 mb-3 text-lg">Panificação</h4>
               <p className="text-gray-700 text-sm">
                 Produção de pães, bolos e produtos de confeitaria.
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-lg">
+            <div className="bg-linear-to-br from-gray-50 to-gray-100 p-6 rounded-lg">
               <h4 className="font-bold text-gray-900 mb-3 text-lg">Reciclagem</h4>
               <p className="text-gray-700 text-sm">
                 Coleta, triagem e processamento de materiais recicláveis.

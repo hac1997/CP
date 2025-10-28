@@ -11,7 +11,7 @@ export default function Footer(): JSX.Element {
       role="contentinfo"
       itemType="https://schema.org/WPFooter"
       itemScope
-  className="bg-gradient-to-br from-gray-50 to-gray-100 text-gray-700 border-t border-gray-200 font-sans"
+  className="bg-linear-to-br from-gray-50 to-gray-100 text-gray-700 border-t border-gray-200 font-sans"
     >
       {/* --- CONTEÚDO PRINCIPAL --- */}
       <div className="max-w-7xl mx-auto px-4 py-8 flex flex-wrap gap-6">

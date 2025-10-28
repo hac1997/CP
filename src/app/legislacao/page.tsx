@@ -1,8 +1,6 @@
-import React from 'react';
-import { FaGavel, FaFileAlt } from 'react-icons/fa';
+import { FaFileAlt } from 'react-icons/fa';
 
 export default function LegislacaoPage() {
-  // Array de objetos contendo as informações de cada legislação
   const legislacoes = [
     {
       titulo: 'Constituição Federal de 1988 (CF/88)',
@@ -25,13 +23,13 @@ export default function LegislacaoPage() {
     {
       titulo: 'Lei Complementar Estadual nº 809/2022',
       descricao: 'Dispõe sobre os Fundos Rotativos do Sistema Penal do Estado e a celebração de parcerias de incentivo à atividade laboral no sistema prisional.',
-      link: '#', // Inserir link da lei, se disponível
+      link: '#',
       linkTexto: 'Informação da Lei',
     },
     {
       titulo: 'Lei Complementar Estadual nº 529/2011',
       descricao: 'Trata do Regimento Interno dos Estabelecimentos Penais do Estado de Santa Catarina.',
-      link: 'https://leis.alesc.sc.gov.br/html/2011/529_2011_lei_complementar.html', // Exemplo de link
+      link: 'https://leis.alesc.sc.gov.br/html/2011/529_2011_lei_complementar.html',
       linkTexto: 'Acessar Lei →',
     },
     {
@@ -43,7 +41,7 @@ export default function LegislacaoPage() {
     {
       titulo: 'Lei Estadual nº 18.011/2020',
       descricao: 'Institui a Política Estadual de Incentivo à Reinserção Social de Apenados e Egressos do Sistema Prisional.',
-      link: 'http://leis.alesc.sc.gov.br/html/2020/18011_2020_lei.html', // Exemplo de link
+      link: 'http://leis.alesc.sc.gov.br/html/2020/18011_2020_lei.html',
       linkTexto: 'Acessar Lei →',
     },
     {
@@ -61,14 +59,14 @@ export default function LegislacaoPage() {
   ];
 
   return (
-    <main className=" bg-gray-50">
+    <main className="bg-gray-50">
       <section className="max-w-7xl mx-auto px-6 py-12">
         <div className="bg-white rounded-lg shadow-md p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Base Legal e Legislações Aplicáveis</h2>
 
           <div className="space-y-6">
-            {legislacoes.map((lei, index) => (
-              <div key={index} className="border-l-4 border-blue-600 pl-6 py-2">
+            {legislacoes.map(lei => (
+              <div key={lei.titulo} className="border-l-4 border-blue-600 pl-6 py-2">
                 <div className="flex items-start gap-3">
                   <FaFileAlt className="text-blue-600 text-xl mt-1" />
                   <div>

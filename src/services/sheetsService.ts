@@ -22,15 +22,12 @@ export async function fetchEditaisFromSheets(): Promise<Edital[]> {
 
 function parseCSVToEditais(csvText: string): Edital[] {
   const lines = csvText.split('\n');
-  const headers = lines[0].split(',').map(h => h.trim());
-
   const editais: Edital[] = [];
 
-  for (let i = 1; i < lines.length; i++) {
-    if (!lines[i].trim()) continue;
+  for (const line of lines.slice(1)) {
+    if (!line.trim()) continue;
 
-    const values = parseCSVLine(lines[i]);
-
+    const values = parseCSVLine(line);
     if (values.length < 10) continue;
 
     const statusValue = (values[9] || '').toLowerCase().trim();
@@ -62,9 +59,7 @@ function parseCSVLine(line: string): string[] {
   let current = '';
   let inQuotes = false;
 
-  for (let i = 0; i < line.length; i++) {
-    const char = line[i];
-
+  for (const char of line) {
     if (char === '"') {
       inQuotes = !inQuotes;
     } else if (char === ',' && !inQuotes) {
@@ -79,24 +74,14 @@ function parseCSVLine(line: string): string[] {
   return result;
 }
 
-
 export function filterEditais(
   editais: Edital[],
   filters: { regional?: string; unidadePrisional?: string; tipo?: string }
 ): Edital[] {
   return editais.filter(edital => {
-    if (filters.regional && edital.regional !== filters.regional) {
-      return false;
-    }
-
-    if (filters.unidadePrisional && !edital.unidadesPrisionais.includes(filters.unidadePrisional)) {
-      return false;
-    }
-
-    if (filters.tipo && edital.tipoChamamento !== filters.tipo) {
-      return false;
-    }
-
+    if (filters.regional && edital.regional !== filters.regional) return false;
+    if (filters.unidadePrisional && !edital.unidadesPrisionais.includes(filters.unidadePrisional)) return false;
+    if (filters.tipo && edital.tipoChamamento !== filters.tipo) return false;
     return true;
   });
 }
@@ -125,18 +110,21 @@ function parseDate(dateString: string): Date {
   if (parts.length !== 3) return new Date();
 
   return new Date(
-    parseInt(parts[2]),
-    parseInt(parts[1]) - 1,
-    parseInt(parts[0])
+    Number.parseInt(parts[2], 10),
+    Number.parseInt(parts[1], 10) - 1,
+    Number.parseInt(parts[0], 10)
   );
 }
 
-export function getUniqueValues(editais: Edital[], field: 'regional' | 'tipoChamamento' | 'unidadesPrisionais'): string[] {
+export function getUniqueValues(
+  editais: Edital[],
+  field: 'regional' | 'tipoChamamento' | 'unidadesPrisionais'
+): string[] {
   if (field === 'unidadesPrisionais') {
     const allUnidades = editais.flatMap(e => e.unidadesPrisionais);
-    return Array.from(new Set(allUnidades)).sort();
+    return Array.from(new Set(allUnidades)).sort((a, b) => a.localeCompare(b));
   }
 
   const values = editais.map(e => e[field]).filter(Boolean);
-  return Array.from(new Set(values)).sort();
+  return Array.from(new Set(values)).sort((a, b) => a.localeCompare(b));
 }

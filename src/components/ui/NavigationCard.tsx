@@ -19,7 +19,7 @@ export const NavigationCard: React.FC<NavigationCardProps> = ({
       <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full border border-gray-200 hover:border-blue-500 cursor-pointer">
         <div className="flex items-start gap-4">
           {icon && (
-            <div className="text-blue-600 text-3xl flex-shrink-0 mt-1">
+            <div className="text-blue-600 text-3xl shrink-0 mt-1">
               {icon}
             </div>
           )}

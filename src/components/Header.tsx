@@ -1,9 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 
-// Links principais
 interface NavItem {
     label: string;
     href: string;
@@ -37,13 +36,43 @@ const socialLinks: NavItem[] = [
 
 export const Header: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const dialogRef = useRef<HTMLDialogElement>(null);
+
+    const toggleMenu = () => {
+        setMenuOpen(prev => !prev);
+    };
+
+    const closeMenu = () => {
+        setMenuOpen(false);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent, callback: () => void) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            callback();
+        }
+    };
+
+    useEffect(() => {
+        const dialog = dialogRef.current;
+        if (!dialog) return;
+
+        if (menuOpen) {
+            dialog.showModal();
+            // Foco no primeiro item interativo
+            const firstLink = dialog.querySelector("a, button");
+            if (firstLink instanceof HTMLElement) {
+                firstLink.focus();
+            }
+        } else {
+            dialog.close();
+        }
+    }, [menuOpen]);
 
     return (
         <header className="bg-white shadow-sm w-full fixed top-0 z-50 font-sans">
-            {/* Topo */}
             <div className="border-b border-gray-200">
                 <div className="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-6 py-3">
-                    {/* Logo */}
                     <a href="https://sc.gov.br/" className="flex items-center gap-3 shrink-0">
                         <img
                             src="https://www.sap.sc.gov.br/wp-content/uploads/2022/08/logo-sc.png"
@@ -52,7 +81,6 @@ export const Header: React.FC = () => {
                         />
                     </a>
 
-                    {/* Navegação principal desktop */}
                     <nav className="hidden lg:flex gap-5 text-base font-semibold" style={{ fontFamily: "Montserrat, sans-serif" }}>
                         {mainLinks.map((item) => (
                             <a
@@ -67,18 +95,17 @@ export const Header: React.FC = () => {
                         ))}
                     </nav>
 
-                    {/* Botão mobile */}
                     <button
-                        onClick={() => setMenuOpen(!menuOpen)}
+                        onClick={toggleMenu}
                         className="lg:hidden p-2 text-gray-700"
-                        aria-label="Abrir menu"
+                        aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+                        aria-expanded={menuOpen}
                     >
                         {menuOpen ? <X size={26} /> : <Menu size={26} />}
                     </button>
                 </div>
             </div>
 
-            {/* Navegação interna */}
             <div className="bg-gray-50 border-b border-gray-200 hidden lg:block">
                 <nav className="max-w-7xl mx-auto px-4 md:px-6">
                     <div className="flex flex-wrap justify-center gap-2 md:gap-3 py-2">
@@ -96,17 +123,29 @@ export const Header: React.FC = () => {
                 </nav>
             </div>
 
-
-            {/* Menu mobile */}
             {menuOpen && (
-                <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40" onClick={() => setMenuOpen(false)}>
-                    <div
-                        className="fixed top-0 left-0 w-72 h-full bg-white shadow-lg p-6 overflow-y-auto space-y-6"
-                        onClick={(e) => e.stopPropagation()}
+                <>
+                    <button
+                        type="button"
+                        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+                        onClick={closeMenu}
+                        onKeyDown={(e) => handleKeyDown(e, closeMenu)}
+                        aria-label="Fechar menu"
+                        tabIndex={0}
+                    />
+                    <dialog
+                        ref={dialogRef}
+                        className="fixed top-0 left-0 w-72 h-full bg-white shadow-lg p-6 overflow-y-auto space-y-6 z-50 m-0 border-0 open:flex open:flex-col"
+                        aria-label="Menu de navegação"
+                        aria-modal="true"
                     >
                         <div className="flex justify-between items-center">
                             <span className="font-semibold text-lg text-gray-800" style={{ fontFamily: "Montserrat, sans-serif" }}>Menu</span>
-                            <button onClick={() => setMenuOpen(false)}>
+                            <button
+                                onClick={closeMenu}
+                                onKeyDown={(e) => handleKeyDown(e, closeMenu)}
+                                aria-label="Fechar menu"
+                            >
                                 <X size={24} />
                             </button>
                         </div>
@@ -119,7 +158,7 @@ export const Header: React.FC = () => {
                                 <Link
                                     key={item.label}
                                     href={item.href}
-                                    onClick={() => setMenuOpen(false)}
+                                    onClick={closeMenu}
                                     className="block text-gray-700 hover:text-blue-700 py-1.5"
                                     style={{ fontFamily: "Montserrat, sans-serif" }}
                                 >
@@ -163,8 +202,8 @@ export const Header: React.FC = () => {
                                 </a>
                             ))}
                         </div>
-                    </div>
-                </div>
+                    </dialog>
+                </>
             )}
         </header>
     );
