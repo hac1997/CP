@@ -11,6 +11,7 @@ import {
   sortEditaisByStatus,
   getUniqueValues
 } from '@/services/sheetsService';
+import { SectionBannerTitle } from '@/components/ui/SectionBannerTitle';
 
 export default function ChamamentosPage() {
   const [editais, setEditais] = useState<Edital[]>([]);
@@ -121,14 +122,34 @@ export default function ChamamentosPage() {
           </div>
         ) : (
           <>
-            {/* Seção de Filtros */}
+            {/* Seção de Filtros + Contador */}
             <div className="mb-10 p-6 bg-white shadow-lg rounded-2xl border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <FaFilter className="text-blue-600" />
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                {/* Título com ícone */}
+                <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <FaFilter className="text-blue-600" />
+                  </div>
+                  Filtrar Chamamentos
+                </h2>
+
+                {/* Contador de Editais */}
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-sm">
+                    <span className="text-white font-bold text-base">{filteredEditais.length}</span>
+                  </div>
+                  <p className="text-gray-700 font-medium text-sm sm:text-base">
+                    {filteredEditais.length === 1 ? 'Edital encontrado' : 'Editais encontrados'}
+                    {(selectedRegional || selectedUnidade || selectedTipo) && (
+                      <span className="ml-2 inline-block text-xs bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full border border-blue-200 font-medium">
+                        Filtrado
+                      </span>
+                    )}
+                  </p>
                 </div>
-                Filtrar Chamamentos
-              </h2>
+              </div>
+
+              {/* FilterBar */}
               <FilterBar
                 regionais={regionais}
                 unidades={unidades}
@@ -142,84 +163,55 @@ export default function ChamamentosPage() {
                 onClearFilters={handleClearFilters}
               />
             </div>
-
-            {/* Total de Editais */}
-            <div className="mb-8 bg-gradient-to-r from-blue-50 to-blue-100 border-l-4 border-blue-600 p-5 rounded-xl shadow-sm">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
-                  <span className="text-blue-600 font-bold text-lg">{filteredEditais.length}</span>
-                </div>
-                <p className="text-gray-800 font-medium">
-                  {filteredEditais.length === 1 ? 'Edital encontrado' : 'Editais encontrados'}
-                  {(selectedRegional || selectedUnidade || selectedTipo) && (
-                    <span className="ml-2 text-sm bg-white px-3 py-1 rounded-full text-blue-600 border border-blue-200">Filtrado</span>
-                  )}
-                </p>
-              </div>
-            </div>
-
             {/* Próximos Editais */}
             {proximosEditais.length > 0 && (
-              <div className="mb-12">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-1 h-8 bg-blue-600 rounded-full"></div>
-                  <h2 className="text-3xl font-extrabold text-gray-900">Próximos Chamamentos</h2>
-                  <div className="flex-1 h-px bg-gradient-to-r from-blue-200 to-transparent"></div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> {/* Ajuste aqui para até 4 colunas */}
+              // Adicionamos 'z-10' na section para definir um contexto de empilhamento.
+              // O próximo header (abertos) terá z-20.
+              <section className="mb-0 relative">
+                <SectionBannerTitle title="Próximos Chamamentos" stickyTop="top-32" zIndex={20} />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 px-6 max-w-7xl mx-auto">
                   {proximosEditais.map((edital, index) => (
                     <EditalCard key={index} edital={edital} />
                   ))}
                 </div>
-              </div>
+              </section>
             )}
 
-            {/* Editais Abertos ou Prorrogados */}
+
+            {/* Abertos ou Prorrogados */}
             {abertosOuProrrogadosEditais.length > 0 && (
-              <div className="mb-12">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-1 h-8 bg-green-600 rounded-full"></div>
-                  <h2 className="text-3xl font-extrabold text-gray-900">Chamamentos Abertos</h2>
-                  <div className="flex-1 h-px bg-gradient-to-r from-green-200 to-transparent"></div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              // Z-index maior para garantir que ele passe por cima do 'Proximos' (z-10)
+              <section className="mb-0 relative">
+                <SectionBannerTitle title="Chamamentos Abertos" stickyTop="top-32" zIndex={30} />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
                   {abertosOuProrrogadosEditais.map((edital, index) => (
                     <EditalCard key={index} edital={edital} />
                   ))}
                 </div>
-              </div>
+              </section>
             )}
 
-            {/* Editais em Andamento (Fechados) */}
             {emAndamentoEditais.length > 0 && (
-              <div className="mb-12">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-1 h-8 bg-yellow-600 rounded-full"></div>
-                  <h2 className="text-3xl font-extrabold text-gray-900">Chamamentos em Andamento</h2>
-                  <div className="flex-1 h-px bg-gradient-to-r from-yellow-200 to-transparent"></div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <section className="mb-0 relative">
+                <SectionBannerTitle title="Chamamentos em Andamento" stickyTop="top-32" zIndex={40} />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 px-6 max-w-7xl mx-auto">
                   {emAndamentoEditais.map((edital, index) => (
                     <EditalCard key={index} edital={edital} />
                   ))}
                 </div>
-              </div>
+              </section>
             )}
 
-            {/* Editais Concluídos */}
+            {/* Concluídos */}
             {concluidosEditais.length > 0 && (
-              <div className="mb-12">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-1 h-8 bg-gray-600 rounded-full"></div>
-                  <h2 className="text-3xl font-extrabold text-gray-900">Chamamentos Finalizados</h2>
-                  <div className="flex-1 h-px bg-gradient-to-r from-gray-200 to-transparent"></div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <section className="mb-0 relative">
+                <SectionBannerTitle title="Chamamentos Finalizados" stickyTop="top-32" zIndex={50} />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
                   {concluidosEditais.map((edital, index) => (
                     <EditalCard key={index} edital={edital} />
                   ))}
                 </div>
-              </div>
+              </section>
             )}
 
             {/* Nenhum Edital Encontrado */}
