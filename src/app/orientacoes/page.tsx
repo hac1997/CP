@@ -45,7 +45,7 @@ export default function OrientacoesPage() {
             Orientações
           </h1>
           <p className="text-base md:text-xl text-green-100 leading-relaxed max-w-3xl mx-auto">
-            Procedimentos, normativas e diretrizes para parcerias laborais no sistema prisional.
+            Procedimentos, normativas, diretrizes e orientações.
           </p>
         </div>
       </section>

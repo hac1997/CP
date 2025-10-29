@@ -45,7 +45,7 @@ export default function LegislacaoPage() {
             Legislação
           </h1>
           <p className="text-base md:text-xl text-blue-100 leading-relaxed max-w-3xl mx-auto">
-            Base legal e legislações aplicáveis ao Departamento de Trabalho e Renda Prisional.
+            Base legal e legislações aplicáveis.
           </p>
         </div>
       </section>
