@@ -1,5 +1,5 @@
 import { Orientacao } from '@/types/orientacao';
-import { parseCSVLine } from './sheetsService';
+import { parseCSVLine, splitCSVLines } from './sheetsService';
 
 const ORIENTACAO_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5fLkEGvYwDWreyCq0xLorJ0NbuqR1oFAQC76LBrkJY6ZR7RAKRRVVLQWa0CWgJRgrfdSJNX2iqkaG/pub?gid=2139950206&single=true&output=csv';
 
@@ -20,7 +20,7 @@ export async function fetchOrientacoesFromSheets(): Promise<Orientacao[]> {
 }
 
 export function parseCSVToOrientacoes(csvText: string): Orientacao[] {
-  const lines = csvText.split('\n');
+  const lines = splitCSVLines(csvText);
   const orientacoes: Orientacao[] = [];
 
   for (const line of lines.slice(1)) {

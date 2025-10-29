@@ -1,5 +1,5 @@
 import { Legislacao } from '@/types/legislacao';
-import { parseCSVLine } from './sheetsService';
+import { parseCSVLine, splitCSVLines } from './sheetsService';
 
 const LEGISLACAO_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5fLkEGvYwDWreyCq0xLorJ0NbuqR1oFAQC76LBrkJY6ZR7RAKRRVVLQWa0CWgJRgrfdSJNX2iqkaG/pub?gid=6959380&single=true&output=csv';
 
@@ -20,7 +20,7 @@ export async function fetchLegislacoesFromSheets(): Promise<Legislacao[]> {
 }
 
 export function parseCSVToLegislacoes(csvText: string): Legislacao[] {
-  const lines = csvText.split('\n');
+  const lines = splitCSVLines(csvText);
   const legislacoes: Legislacao[] = [];
 
   for (const line of lines.slice(1)) {
