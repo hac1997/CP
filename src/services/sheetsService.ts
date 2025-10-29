@@ -7,7 +7,7 @@ import { Edital } from '@/types/edital';
 export async function fetchEditaisFromSheets(): Promise<Edital[]> {
   try {
     const response = await fetch(
-      'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5fLkEGvYwDWreyCq0xLorJ0NbuqR1oFAQC76LBrkJY6ZR7RAKRRVVLQWa0CWgJRgrfdSJNX2iqkaG/pub?output=csv'
+      'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5fLkEGvYwDWreyCq0xLorJ0NbuqR1oFAQC76LBrkJY6ZR7RAKRRVVLQWa0CWgJRgrfdSJNX2iqkaG/pub?gid=0&single=true&output=csv'
     );
 
     if (!response.ok) {
