@@ -7,31 +7,37 @@ import { FaHandshake, FaGavel, FaBookOpen, FaBullhorn, FaAward } from 'react-ico
 export default function Home() {
   return (
     <div className="bg-gray-50">
-      <section className="relative bg-linear-to-br from-gray-900 via-black to-gray-900 text-white py-5 overflow-hidden">
-        <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_center,white_1px,transparent_1px)] bg-size-[30px_30px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_0%,transparent_60%)]" />
+<section className="relative bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white py-5 overflow-hidden">
+  {/* Camada de textura sutil (pontos) */}
+  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,white_1px,transparent_1px)] bg-[length:20px_20px]">
+    {/* Brilhos radiais sutis — ajustados para o fundo escuro */}
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.05)_0%,transparent_60%)]" />
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.05)_0%,transparent_60%)]" />
+  </div>
 
-        <div className="relative max-w-6xl mx-auto px-6 text-center">
-          <div className="mb-0 flex justify-center">
-            <div className="relative">
-              <div className="absolute inset-0 bg-white/10 blur-xl rounded-full scale-150 -z-10" />
-              <img
-                src="/images/PP-COLORIDO-PNG.png"
-                alt="Logo Polícia Penal"
-                className="h-20 w-auto drop-shadow-2xl"
-              />
-            </div>
-          </div>
+  {/* Conteúdo */}
+  <div className="relative max-w-6xl mx-auto px-6 text-center">
+    <div className="mb-0 flex justify-center">
+      <div className="relative">
+        <div className="absolute inset-0 bg-white/10 blur-xl rounded-full scale-150 -z-10" />
+        <img
+          src="/images/PP-COLORIDO-PNG.png"
+          alt="Logo Polícia Penal"
+          className="h-20 w-auto drop-shadow-2xl"
+        />
+      </div>
+    </div>
 
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-3 drop-shadow-lg bg-clip-text text-transparent bg-linear-to-r from-white to-gray-300">
-            Departamento de Polícia Penal
-          </h1>
+    <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-3 drop-shadow-lg bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+      Departamento de Polícia Penal
+    </h1>
 
-          <p className="text-base md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto font-medium">
-            Coordenadoria de Trabalho e Renda
-          </p>
-        </div>
-      </section>
+    <p className="text-base md:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto font-medium">
+      Coordenadoria de Trabalho e Renda
+    </p>
+  </div>
+</section>
+
 
       <section className="max-w-7xl mx-auto px-6 py-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

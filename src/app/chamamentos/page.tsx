@@ -172,7 +172,7 @@ export default function ChamamentosPage() {
             {proximosEditais.length > 0 && (
               <section className="mb-0 relative">
                 <SectionBannerTitle title="Próximos Chamamentos" />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 px-6 max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 z-1 lg:grid-cols-3 gap-6 mt-6 px-6 max-w-7xl mx-auto">
                   {proximosEditais.map(edital => (
                     <EditalCard key={makeKey(edital)} edital={edital} />
                   ))}
@@ -183,7 +183,7 @@ export default function ChamamentosPage() {
             {abertosOuProrrogadosEditais.length > 0 && (
               <section className="mb-0 relative">
                 <SectionBannerTitle title="Chamamentos Abertos" />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 px-6 max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 z-1 lg:grid-cols-3 gap-6 mt-6 px-6 max-w-7xl mx-auto">
                   {abertosOuProrrogadosEditais.map(edital => (
                     <EditalCard key={makeKey(edital)} edital={edital} />
                   ))}
@@ -194,7 +194,7 @@ export default function ChamamentosPage() {
             {emAndamentoEditais.length > 0 && (
               <section className="mb-0 relative">
                 <SectionBannerTitle title="Chamamentos em Andamento" />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 px-6 max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 z-1 lg:grid-cols-3 gap-6 mt-6 px-6 max-w-7xl mx-auto">
                   {emAndamentoEditais.map(edital => (
                     <EditalCard key={makeKey(edital)} edital={edital} />
                   ))}
@@ -205,7 +205,7 @@ export default function ChamamentosPage() {
             {concluidosEditais.length > 0 && (
               <section className="mb-0 relative">
                 <SectionBannerTitle title="Chamamentos Finalizados" />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 px-6 max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 z-1 lg:grid-cols-3 gap-6 mt-6 px-6 max-w-7xl mx-auto">
                   {concluidosEditais.map(edital => (
                     <EditalCard key={makeKey(edital)} edital={edital} />
                   ))}

@@ -17,6 +17,7 @@ export const SectionBannerTitle: React.FC<SectionBannerTitleProps> = ({
         sticky 
         top-18 md:top-21 lg:top-32 
         z-${zIndex} 
+        z-1
         bg-linear-to-br from-blue-800 via-blue-900 to-blue-950 
         text-white py-4 shadow-lg 
         overflow-hidden 

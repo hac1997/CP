@@ -122,7 +122,7 @@ export const EditalCard: React.FC<EditalCardProps> = ({ edital }) => {
         href={edital.link}
         target="_blank"
         rel="noopener noreferrer"
-        className={`group block mb-5 bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 border-l-4 ${config.borderColor} hover:scale-[1.02] cursor-pointer`}
+        className={`group block mb-5 bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 border-l-4 ${config.borderColor} hover:scale-[1.02] hover:z-[0] cursor-pointer`}
       >
         <CardContent edital={edital} config={config} />
       </a>
@@ -130,7 +130,7 @@ export const EditalCard: React.FC<EditalCardProps> = ({ edital }) => {
   }
 
   return (
-    <div className={`bg-white rounded-xl shadow-sm p-6 border-l-4 ${config.borderColor}`}>
+    <div className={`bg-white rounded-xl shadow-sm p-6 border-l-4 z-[-1]${config.borderColor}`}>
       <CardContent edital={edital} config={config} />
     </div>
   );
