@@ -26,7 +26,7 @@ export async function fetchEditaisFromSheets(): Promise<Edital[]> {
  * Converte CSV em array de Editais
  */
 export function parseCSVToEditais(csvText: string): Edital[] {
-  const lines = splitCSVLines(csvText);
+  const lines = csvText.split('\n');
   const editais: Edital[] = [];
 
   for (const line of lines.slice(1)) {
@@ -57,39 +57,6 @@ export function parseCSVToEditais(csvText: string): Edital[] {
   }
 
   return editais;
-}
-
-/**
- * Divide o CSV em linhas, respeitando quebras de linha dentro de células com aspas
- */
-export function splitCSVLines(csvText: string): string[] {
-  const lines: string[] = [];
-  let currentLine = '';
-  let inQuotes = false;
-
-  for (let i = 0; i < csvText.length; i++) {
-    const char = csvText[i];
-
-    if (char === '"') {
-      inQuotes = !inQuotes;
-      currentLine += char;
-    } else if (char === '\n' && !inQuotes) {
-      if (currentLine.trim()) {
-        lines.push(currentLine);
-      }
-      currentLine = '';
-    } else if (char === '\r') {
-      continue;
-    } else {
-      currentLine += char;
-    }
-  }
-
-  if (currentLine.trim()) {
-    lines.push(currentLine);
-  }
-
-  return lines;
 }
 
 /**
