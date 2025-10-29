@@ -7,13 +7,12 @@ export async function fetchOrientacoesFromSheets(): Promise<Orientacao[]> {
     const response = await fetch(ORIENTACAO_SHEET_URL);
 
     if (!response.ok) {
-      throw new Error('Falha ao buscar dados da planilha');
+      return [];
     }
 
     const csvText = await response.text();
     return parseCSVToOrientacoes(csvText);
   } catch (error) {
-    console.error('Erro ao buscar orientações:', error);
     return [];
   }
 }

@@ -11,13 +11,12 @@ export async function fetchEditaisFromSheets(): Promise<Edital[]> {
     );
 
     if (!response.ok) {
-      throw new Error('Falha ao buscar dados da planilha');
+      return [];
     }
 
     const csvText = await response.text();
     return parseCSVToEditais(csvText);
   } catch (error) {
-    console.error('Erro ao buscar editais:', error);
     return [];
   }
 }

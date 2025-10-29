@@ -7,13 +7,12 @@ export async function fetchLegislacoesFromSheets(): Promise<Legislacao[]> {
     const response = await fetch(LEGISLACAO_SHEET_URL);
 
     if (!response.ok) {
-      throw new Error('Falha ao buscar dados da planilha');
+      return [];
     }
 
     const csvText = await response.text();
     return parseCSVToLegislacoes(csvText);
   } catch (error) {
-    console.error('Erro ao buscar legislações:', error);
     return [];
   }
 }
