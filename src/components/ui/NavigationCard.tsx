@@ -6,17 +6,27 @@ interface NavigationCardProps {
   description: string;
   href: string;
   icon?: React.ReactNode;
+  ariaLabel?: string
 }
 
 export const NavigationCard: React.FC<NavigationCardProps> = ({
   title,
   description,
   href,
-  icon
+  icon,
+  
 }) => {
   return (
-    <Link href={href}>
-      <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full border border-gray-200 hover:border-blue-500 cursor-pointer">
+    <Link href={href} className="block h-full">
+      <div
+        className="
+          bg-white rounded-lg shadow-md p-6 
+          border border-gray-200 
+          cursor-pointer h-full
+           transition-transform duration-600 ease-out
+          hover:shadow-xl hover:-translate-y-1 hover:border-blue-500
+        "
+      >
         <div className="flex items-start gap-4">
           {icon && (
             <div className="text-blue-600 text-3xl shrink-0 mt-1">

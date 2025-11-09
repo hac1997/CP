@@ -1,93 +1,267 @@
-"use client";
+// components/ui/FilterBar.tsx
+"use client"
 
-import React from 'react';
+import { useState } from 'react'
+import { cva } from 'class-variance-authority'
+import { cn } from '@/lib/utils'
+import { X, Filter, ChevronDown, ChevronUp } from 'lucide-react'
+
+const selectVariants = cva(
+  'w-full px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-lg transition-all duration-200 appearance-none cursor-pointer',
+  'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
+  'hover:border-blue-400',
+  'disabled:opacity-50 disabled:cursor-not-allowed',
+  'bg-[url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23525252\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e")] bg-[length:1rem] bg-[center_right_0.5rem] bg-no-repeat pr-8'
+)
+
+const labelVariants = cva(
+  'block text-xs font-bold text-gray-700 mb-1.5 flex items-center gap-1.5'
+)
 
 interface FilterBarProps {
-  regionais: string[];
-  unidades: string[];
-  tipos: string[];
-  selectedRegional: string;
-  selectedUnidade: string;
-  selectedTipo: string;
-  onRegionalChange: (value: string) => void;
-  onUnidadeChange: (value: string) => void;
-  onTipoChange: (value: string) => void;
-  onClearFilters: () => void;
+  regionais: string[]
+  unidades: string[]
+  tipos: string[]
+  anos: number[]
+  selectedRegional: string
+  selectedUnidade: string
+  selectedTipo: string
+  selectedAno: string
+  onRegionalChange: (v: string) => void
+  onUnidadeChange: (v: string) => void
+  onTipoChange: (v: string) => void
+  onAnoChange: (v: string) => void
+  onClearFilters: () => void
 }
 
-export const FilterBar: React.FC<FilterBarProps> = ({
-  regionais,
-  unidades,
-  tipos,
-  selectedRegional,
-  selectedUnidade,
-  selectedTipo,
-  onRegionalChange,
-  onUnidadeChange,
-  onTipoChange,
-  onClearFilters
-}) => {
+export function FilterBar(props: FilterBarProps) {
+  const {
+    regionais, unidades, tipos, anos,
+    selectedRegional, selectedUnidade, selectedTipo, selectedAno,
+    onRegionalChange, onUnidadeChange, onTipoChange, onAnoChange, onClearFilters
+  } = props
+
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  const hasActiveFilters = selectedRegional || selectedUnidade || selectedTipo || selectedAno
+  const activeFiltersCount = [selectedRegional, selectedUnidade, selectedTipo, selectedAno].filter(Boolean).length
+
   return (
-    <div className="flex flex-col md:flex-row gap-4">
-      <div className="flex-1">
-        <label htmlFor="regional" className="block text-sm font-semibold text-gray-700 mb-2">
-          Regional
-        </label>
-        <select
-          id="regional"
-          value={selectedRegional}
-          onChange={(e) => onRegionalChange(e.target.value)}
-          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 transition-all hover:bg-white"
-        >
-          <option value="">Todas as Regionais</option>
-          {regionais.map(regional => (
-            <option key={regional} value={regional}>{regional}</option>
-          ))}
-        </select>
+    <div className="space-y-3">
+      {/* Header Compacto - Sempre Visível */}
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="flex items-center justify-center w-9 h-9 bg-blue-100 rounded-lg shrink-0">
+            <Filter className="w-4 h-4 text-blue-700" aria-hidden="true" />
+          </div>
+          <div className="min-w-0">
+            <h3 className="text-base font-bold text-gray-900 truncate">Filtros</h3>
+            {hasActiveFilters && (
+              <p className="text-[11px] text-gray-600">
+                {activeFiltersCount} ativo{activeFiltersCount > 1 ? 's' : ''}
+              </p>
+            )}
+          </div>
+        </div>
+        
+        <div className="flex items-center gap-2 shrink-0">
+          {/* Botão Limpar */}
+          {hasActiveFilters && (
+            <button
+              onClick={onClearFilters}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-red-700 bg-red-50 rounded-lg hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all"
+              aria-label="Limpar todos os filtros"
+            >
+              <X className="w-3.5 h-3.5" aria-hidden="true" />
+              <span className="hidden sm:inline">Limpar</span>
+            </button>
+          )}
+
+          {/* Botão Expandir/Recolher */}
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className={cn(
+              "inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500",
+              isExpanded
+                ? "bg-blue-600 text-white hover:bg-blue-700"
+                : "bg-blue-100 text-blue-700 hover:bg-blue-200"
+            )}
+            aria-expanded={isExpanded}
+            aria-label={isExpanded ? "Recolher filtros" : "Expandir filtros"}
+          >
+            <span>{isExpanded ? 'Ocultar' : 'Filtrar'}</span>
+            {isExpanded ? (
+              <ChevronUp className="w-3.5 h-3.5" aria-hidden="true" />
+            ) : (
+              <ChevronDown className="w-3.5 h-3.5" aria-hidden="true" />
+            )}
+          </button>
+        </div>
       </div>
 
-      <div className="flex-1">
-        <label htmlFor="unidade" className="block text-sm font-semibold text-gray-700 mb-2">
-          Unidade Prisional
-        </label>
-        <select
-          id="unidade"
-          value={selectedUnidade}
-          onChange={(e) => onUnidadeChange(e.target.value)}
-          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 transition-all hover:bg-white"
-        >
-          <option value="">Todas as Unidades</option>
-          {unidades.map(unidade => (
-            <option key={unidade} value={unidade}>{unidade}</option>
-          ))}
-        </select>
+      {/* Grid de Filtros - Compacto e Responsivo */}
+      <div
+        className={cn(
+          "grid transition-all duration-300 ease-in-out overflow-hidden",
+          isExpanded
+            ? "grid-rows-[1fr] opacity-100"
+            : "grid-rows-[0fr] opacity-0"
+        )}
+      >
+        <div className="overflow-hidden">
+          <div className="pt-1 pb-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {/* Regional */}
+              <FilterSelect
+                id="regional"
+                label="Regional"
+                value={selectedRegional}
+                onChange={onRegionalChange}
+                options={regionais}
+                placeholder="Todas"
+                isActive={!!selectedRegional}
+              />
+
+              {/* Unidade */}
+              <FilterSelect
+                id="unidade"
+                label="Unidade"
+                value={selectedUnidade}
+                onChange={onUnidadeChange}
+                options={unidades}
+                placeholder="Todas"
+                isActive={!!selectedUnidade}
+              />
+
+              {/* Tipo */}
+              <FilterSelect
+                id="tipo"
+                label="Tipo"
+                value={selectedTipo}
+                onChange={onTipoChange}
+                options={tipos}
+                placeholder="Todos"
+                isActive={!!selectedTipo}
+              />
+
+              {/* Ano */}
+              <FilterSelect
+                id="ano"
+                label="Ano"
+                value={selectedAno}
+                onChange={onAnoChange}
+                options={anos.map(String)}
+                placeholder="Todos"
+                isActive={!!selectedAno}
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="flex-1">
-        <label htmlFor="tipo" className="block text-sm font-semibold text-gray-700 mb-2">
-          Tipo de Chamamento
-        </label>
-        <select
-          id="tipo"
-          value={selectedTipo}
-          onChange={(e) => onTipoChange(e.target.value)}
-          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 transition-all hover:bg-white"
-        >
-          <option value="">Todos os Tipos</option>
-          {tipos.map(tipo => (
-            <option key={tipo} value={tipo}>{tipo}</option>
-          ))}
-        </select>
-      </div>
-
-      <div className="flex items-end">
-        <button
-          onClick={onClearFilters}
-          className="px-6 py-3 bg-linear-to-r from-gray-100 to-gray-200 text-gray-700 rounded-lg hover:from-gray-200 hover:to-gray-300 transition-all duration-300 font-semibold whitespace-nowrap shadow-sm hover:shadow-md"
-        >
-          Limpar
-        </button>
-      </div>
+      {/* Badges de Filtros Ativos - Compactos */}
+      {hasActiveFilters && (
+        <div className="flex flex-wrap gap-1.5 pt-2 border-t border-gray-200">
+          {selectedRegional && (
+            <FilterBadge
+              label="Regional"
+              value={selectedRegional}
+              onRemove={() => onRegionalChange('')}
+            />
+          )}
+          {selectedUnidade && (
+            <FilterBadge
+              label="Unidade"
+              value={selectedUnidade}
+              onRemove={() => onUnidadeChange('')}
+            />
+          )}
+          {selectedTipo && (
+            <FilterBadge
+              label="Tipo"
+              value={selectedTipo}
+              onRemove={() => onTipoChange('')}
+            />
+          )}
+          {selectedAno && (
+            <FilterBadge
+              label="Ano"
+              value={selectedAno}
+              onRemove={() => onAnoChange('')}
+            />
+          )}
+        </div>
+      )}
     </div>
-  );
-};
+  )
+}
+
+/* ===========================
+   COMPONENTES AUXILIARES
+   =========================== */
+
+// Select Compacto
+interface FilterSelectProps {
+  id: string
+  label: string
+  value: string
+  onChange: (value: string) => void
+  options: (string | number)[]
+  placeholder: string
+  isActive?: boolean
+}
+
+function FilterSelect({ id, label, value, onChange, options, placeholder, isActive }: FilterSelectProps) {
+  return (
+    <div>
+      <label htmlFor={id} className={labelVariants()}>
+        <span>{label}</span>
+        {isActive && (
+          <span className="inline-flex items-center justify-center w-4 h-4 text-[9px] font-bold text-white bg-blue-600 rounded-full">
+            1
+          </span>
+        )}
+      </label>
+      <select 
+        id={id} 
+        value={value} 
+        onChange={e => onChange(e.target.value)} 
+        className={cn(
+          selectVariants(),
+          isActive && "border-blue-500 ring-1 ring-blue-100"
+        )}
+        aria-label={`Filtrar por ${label.toLowerCase()}`}
+      >
+        <option value="">{placeholder}</option>
+        {options.map(opt => (
+          <option key={opt} value={opt}>
+            {opt}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
+}
+
+// Badge Mini
+interface FilterBadgeProps {
+  label: string
+  value: string
+  onRemove: () => void
+}
+
+function FilterBadge({ label, value, onRemove }: FilterBadgeProps) {
+  return (
+    <div className="inline-flex items-center gap-1.5 px-2 py-1 bg-blue-100 text-blue-800 rounded-md border border-blue-200 text-xs font-medium">
+      <span className="text-[10px] font-bold text-blue-600">{label}:</span>
+      <span className="max-w-[100px] truncate">{value}</span>
+      <button
+        onClick={onRemove}
+        className="hover:bg-blue-200 rounded-full p-0.5 transition-colors focus:outline-none focus:ring-1 focus:ring-blue-500"
+        aria-label={`Remover filtro ${label}: ${value}`}
+      >
+        <X className="w-3 h-3" aria-hidden="true" />
+      </button>
+    </div>
+  )
+}

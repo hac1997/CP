@@ -1,40 +1,37 @@
-import React from 'react';
+// components/ui/SectionBannerTitle.tsx
+import { cva } from 'class-variance-authority'
+import { cn } from '@/lib/utils'
 
-interface SectionBannerTitleProps {
+const bannerVariants = cva(
+  'sticky top-0 z-10 bg-gradient-to-r from-blue-800 via-blue-900 to-blue-950 text-white py-4 shadow-md',
+  {
+    variants: {
+      size: {
+        default: 'top-16 md:top-32',
+      },
+    },
+    defaultVariants: { size: 'default' },
+  }
+)
+
+
+export interface SectionBannerTitleProps {
   title: string;
-  className?: string;
-  zIndex?: number;
+  className?: string
+  subtitle?: string;
+  count?: number;
+  variant?: 'default' | 'gradient' | 'solid';
 }
 
-export const SectionBannerTitle: React.FC<SectionBannerTitleProps> = ({
-  title,
-  className = '',
-  zIndex = 20,
-}) => {
+export function SectionBannerTitle({ title, className }: SectionBannerTitleProps) {
   return (
-    <header
-      className={`
-        sticky 
-        top-18 md:top-21 lg:top-32 
-        z-${zIndex} 
-        z-1
-        bg-linear-to-br from-blue-800 via-blue-900 to-blue-950 
-        text-white py-4 shadow-lg 
-        overflow-hidden 
-        border-b border-blue-700 
-        transition-all duration-75 ease-out
-        ${className}
-      `}
-    >
-      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,white_1px,transparent_1px)] bg-size-[20px_20px]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.15)_0%,transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.15)_0%,transparent_50%)]" />
-
+    <header className={cn(bannerVariants(), className)}>
       <div className="relative max-w-7xl mx-auto px-6 text-center">
-        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight drop-shadow-md">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,white_1px,transparent_1px)] bg-[length:20px_20px]" />
+        <h2 className="relative text-2xl md:text-3xl font-bold tracking-tight">
           {title}
         </h2>
       </div>
     </header>
-  );
-};
+  )
+}

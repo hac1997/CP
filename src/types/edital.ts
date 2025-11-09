@@ -10,9 +10,3 @@ export interface Edital {
   unidadesPrisionais: string[];
   status: 'proximo' | 'aberto' | 'fechado' | 'concluido' | 'prorrogado';
 }
-
-export interface EditalFilters {
-  regional?: string;
-  unidadePrisional?: string;
-  tipo?: string;
-}

@@ -1,91 +1,30 @@
+// src/services/orientacaoService.ts
 import { Orientacao } from '@/types/orientacao';
+import { parseCSVLine, splitCSVLines } from '@/lib/csvUtils';
 
-const ORIENTACAO_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5fLkEGvYwDWreyCq0xLorJ0NbuqR1oFAQC76LBrkJY6ZR7RAKRRVVLQWa0CWgJRgrfdSJNX2iqkaG/pub?gid=2139950206&single=true&output=csv';
+const URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5fLkEGvYwDWreyCq0xLorJ0NbuqR1oFAQC76LBrkJY6ZR7RAKRRVVLQWa0CWgJRgrfdSJNX2iqkaG/pub?gid=2139950206&single=true&output=csv';
 
 export async function fetchOrientacoesFromSheets(): Promise<Orientacao[]> {
   try {
-    const response = await fetch(ORIENTACAO_SHEET_URL);
-
-    if (!response.ok) {
-      return [];
-    }
-
-    const csvText = await response.text();
-    return parseCSVToOrientacoes(csvText);
-  } catch (error) {
+    const res = await fetch(URL);
+    if (!res.ok) return [];
+    const csv = await res.text();
+    return parseCSVToOrientacoes(csv);
+  } catch {
     return [];
   }
 }
 
-function splitCSVLines(csvText: string): string[] {
-  const lines: string[] = [];
-  let currentLine = '';
-  let inQuotes = false;
-
-  for (let i = 0; i < csvText.length; i++) {
-    const char = csvText[i];
-
-    if (char === '"') {
-      inQuotes = !inQuotes;
-      currentLine += char;
-    } else if (char === '\n' && !inQuotes) {
-      if (currentLine.trim()) {
-        lines.push(currentLine);
-      }
-      currentLine = '';
-    } else if (char === '\r') {
-      continue;
-    } else {
-      currentLine += char;
-    }
-  }
-
-  if (currentLine.trim()) {
-    lines.push(currentLine);
-  }
-
-  return lines;
-}
-
-function parseCSVLine(line: string): string[] {
-  const result: string[] = [];
-  let current = '';
-  let inQuotes = false;
-
-  for (const char of line) {
-    if (char === '"') {
-      inQuotes = !inQuotes;
-    } else if (char === ',' && !inQuotes) {
-      result.push(current.trim());
-      current = '';
-    } else {
-      current += char;
-    }
-  }
-
-  result.push(current.trim());
-  return result;
-}
-
 export function parseCSVToOrientacoes(csvText: string): Orientacao[] {
   const lines = splitCSVLines(csvText);
-  const orientacoes: Orientacao[] = [];
-
-  for (const line of lines.slice(1)) {
-    if (!line.trim()) continue;
-
+  return lines.slice(1).map(line => {
     const values = parseCSVLine(line);
-    if (values.length < 4) continue;
-
-    const orientacao: Orientacao = {
+    if (values.length < 4) return null;
+    return {
       titulo: values[0] || '',
       descricao: values[1] || '',
       linkTexto: values[2] || '',
       link: values[3] || ''
     };
-
-    orientacoes.push(orientacao);
-  }
-
-  return orientacoes;
+  }).filter(Boolean) as Orientacao[];
 }

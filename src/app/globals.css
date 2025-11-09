@@ -1,27 +1,94 @@
-@import "tailwindcss";
+/* app/globals.css */
+
+/* Font Awesome (usado em Header e páginas) */
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ===========================
+   ACESSIBILIDADE - Reduced Motion
+   =========================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ===========================
+   BASE
+   =========================== */
+@layer base {
+  html {
+    @apply scroll-smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-blue-500 ring-offset-2 rounded;
+  }
 }
+
+/* ===========================
+   UTILITIES USADAS (apenas as reais)
+   =========================== */
+@layer utilities {
+  .line-clamp-2 { @apply block overflow-hidden text-ellipsis; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .line-clamp-3 { @apply block overflow-hidden text-ellipsis; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+  .line-clamp-4 { @apply block overflow-hidden text-ellipsis; -webkit-line-clamp: 4; -webkit-box-orient: vertical; }
+
+  .glass { @apply bg-white/80 backdrop-blur-sm border border-white/20; }
+  .container-custom { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+}
+
+/* ===========================
+   COMPONENTES USADOS (só os que aparecem)
+   =========================== */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 active:bg-blue-800 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-all duration-200 shadow-md hover:shadow-lg;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold;
+  }
+  .badge-primary { @apply badge bg-blue-100 text-blue-800 ring-1 ring-blue-200; }
+  .badge-success { @apply badge bg-green-100 text-green-800 ring-1 ring-green-200; }
+  .badge-warning { @apply badge bg-yellow-100 text-yellow-800 ring-1 ring-yellow-200; }
+
+
+
+}
+
+/* ===========================
+   SR-ONLY (usado em vários lugares)
+   =========================== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.ease-out { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+
