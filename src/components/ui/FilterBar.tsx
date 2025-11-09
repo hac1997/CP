@@ -7,10 +7,9 @@ import { cn } from '@/lib/utils'
 import { X, Filter, ChevronDown, ChevronUp } from 'lucide-react'
 
 const selectVariants = cva(
-  'w-full px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-lg transition-all duration-200 appearance-none cursor-pointer',
-  'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
-  'hover:border-blue-400',
-  'disabled:opacity-50 disabled:cursor-not-allowed',
+  'w-full px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-lg transition-all duration-200 appearance-none cursor-pointer ' +
+  'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400 ' +
+  'disabled:opacity-50 disabled:cursor-not-allowed ' +
   'bg-[url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23525252\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e")] bg-[length:1rem] bg-[center_right_0.5rem] bg-no-repeat pr-8'
 )
 
@@ -27,28 +26,38 @@ interface FilterBarProps {
   selectedUnidade: string
   selectedTipo: string
   selectedAno: string
+  selectedStatus: string // NOVO
   onRegionalChange: (v: string) => void
   onUnidadeChange: (v: string) => void
   onTipoChange: (v: string) => void
   onAnoChange: (v: string) => void
+  onStatusChange: (v: string) => void // NOVO
   onClearFilters: () => void
 }
+
+const statusOptions = [
+  { value: '', label: 'Todos os status' },
+  { value: 'proximo', label: 'Próximos' },
+  { value: 'aberto', label: 'Abertos' },
+  { value: 'emAndamento', label: 'Em Andamento' },
+  { value: 'concluido', label: 'Concluídos' },
+]
 
 export function FilterBar(props: FilterBarProps) {
   const {
     regionais, unidades, tipos, anos,
-    selectedRegional, selectedUnidade, selectedTipo, selectedAno,
-    onRegionalChange, onUnidadeChange, onTipoChange, onAnoChange, onClearFilters
+    selectedRegional, selectedUnidade, selectedTipo, selectedAno, selectedStatus,
+    onRegionalChange, onUnidadeChange, onTipoChange, onAnoChange, onStatusChange, onClearFilters
   } = props
 
   const [isExpanded, setIsExpanded] = useState(false)
 
-  const hasActiveFilters = selectedRegional || selectedUnidade || selectedTipo || selectedAno
-  const activeFiltersCount = [selectedRegional, selectedUnidade, selectedTipo, selectedAno].filter(Boolean).length
+  const hasActiveFilters = selectedRegional || selectedUnidade || selectedTipo || selectedAno || selectedStatus
+  const activeFiltersCount = [selectedRegional, selectedUnidade, selectedTipo, selectedAno, selectedStatus].filter(Boolean).length
 
   return (
     <div className="space-y-3">
-      {/* Header Compacto - Sempre Visível */}
+      {/* Header Compacto */}
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
           <div className="flex items-center justify-center w-9 h-9 bg-blue-100 rounded-lg shrink-0">
@@ -65,7 +74,6 @@ export function FilterBar(props: FilterBarProps) {
         </div>
         
         <div className="flex items-center gap-2 shrink-0">
-          {/* Botão Limpar */}
           {hasActiveFilters && (
             <button
               onClick={onClearFilters}
@@ -77,7 +85,6 @@ export function FilterBar(props: FilterBarProps) {
             </button>
           )}
 
-          {/* Botão Expandir/Recolher */}
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className={cn(
@@ -99,7 +106,7 @@ export function FilterBar(props: FilterBarProps) {
         </div>
       </div>
 
-      {/* Grid de Filtros - Compacto e Responsivo */}
+      {/* Grid de Filtros */}
       <div
         className={cn(
           "grid transition-all duration-300 ease-in-out overflow-hidden",
@@ -110,7 +117,7 @@ export function FilterBar(props: FilterBarProps) {
       >
         <div className="overflow-hidden">
           <div className="pt-1 pb-2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
               {/* Regional */}
               <FilterSelect
                 id="regional"
@@ -154,40 +161,43 @@ export function FilterBar(props: FilterBarProps) {
                 placeholder="Todos"
                 isActive={!!selectedAno}
               />
+
+              {/* Status */}
+              <FilterSelect
+                id="status"
+                label="Status"
+                value={selectedStatus}
+                onChange={onStatusChange}
+                options={statusOptions.map(o => o.value)}
+                displayOptions={statusOptions.map(o => o.label)}
+                placeholder="Todos"
+                isActive={!!selectedStatus}
+              />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Badges de Filtros Ativos - Compactos */}
+      {/* Badges de Filtros Ativos */}
       {hasActiveFilters && (
         <div className="flex flex-wrap gap-1.5 pt-2 border-t border-gray-200">
           {selectedRegional && (
-            <FilterBadge
-              label="Regional"
-              value={selectedRegional}
-              onRemove={() => onRegionalChange('')}
-            />
+            <FilterBadge label="Regional" value={selectedRegional} onRemove={() => onRegionalChange('')} />
           )}
           {selectedUnidade && (
-            <FilterBadge
-              label="Unidade"
-              value={selectedUnidade}
-              onRemove={() => onUnidadeChange('')}
-            />
+            <FilterBadge label="Unidade" value={selectedUnidade} onRemove={() => onUnidadeChange('')} />
           )}
           {selectedTipo && (
-            <FilterBadge
-              label="Tipo"
-              value={selectedTipo}
-              onRemove={() => onTipoChange('')}
-            />
+            <FilterBadge label="Tipo" value={selectedTipo} onRemove={() => onTipoChange('')} />
           )}
           {selectedAno && (
+            <FilterBadge label="Ano" value={selectedAno} onRemove={() => onAnoChange('')} />
+          )}
+          {selectedStatus && (
             <FilterBadge
-              label="Ano"
-              value={selectedAno}
-              onRemove={() => onAnoChange('')}
+              label="Status"
+              value={statusOptions.find(o => o.value === selectedStatus)?.label || selectedStatus}
+              onRemove={() => onStatusChange('')}
             />
           )}
         </div>
@@ -196,22 +206,22 @@ export function FilterBar(props: FilterBarProps) {
   )
 }
 
-/* ===========================
-   COMPONENTES AUXILIARES
-   =========================== */
 
-// Select Compacto
+
 interface FilterSelectProps {
   id: string
   label: string
   value: string
   onChange: (value: string) => void
   options: (string | number)[]
+  displayOptions?: string[] // NOVO: para status com labels diferentes
   placeholder: string
   isActive?: boolean
 }
 
-function FilterSelect({ id, label, value, onChange, options, placeholder, isActive }: FilterSelectProps) {
+function FilterSelect({ 
+  id, label, value, onChange, options, displayOptions, placeholder, isActive 
+}: FilterSelectProps) {
   return (
     <div>
       <label htmlFor={id} className={labelVariants()}>
@@ -233,9 +243,9 @@ function FilterSelect({ id, label, value, onChange, options, placeholder, isActi
         aria-label={`Filtrar por ${label.toLowerCase()}`}
       >
         <option value="">{placeholder}</option>
-        {options.map(opt => (
+        {options.map((opt, i) => (
           <option key={opt} value={opt}>
-            {opt}
+            {displayOptions ? displayOptions[i] : opt}
           </option>
         ))}
       </select>
@@ -243,7 +253,6 @@ function FilterSelect({ id, label, value, onChange, options, placeholder, isActi
   )
 }
 
-// Badge Mini
 interface FilterBadgeProps {
   label: string
   value: string

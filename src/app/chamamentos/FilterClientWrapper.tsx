@@ -8,8 +8,6 @@ import { SectionBannerTitle, SectionBannerTitleProps } from '@/components/ui/Sec
 import { filterEditais, sortEditaisByStatus, EditalComAno } from '@/services/editalService';
 import { Inbox } from 'lucide-react';
 
-
-
 interface Props {
   editais: EditalComAno[];
   regionais: string[];
@@ -24,11 +22,32 @@ export function FilterClientWrapper({ editais: initialEditais, regionais, unidad
     unidadePrisional: '',
     tipo: '',
     ano: '',
+    status: '', // NOVO: Filtro por status
   });
 
   const filtered = useMemo(() => {
     if (!initialEditais || initialEditais.length === 0) return [];
-    return sortEditaisByStatus(filterEditais(initialEditais, filters));
+
+    // Primeiro aplica os filtros existentes
+    let result = filterEditais(initialEditais, {
+      regional: filters.regional,
+      unidadePrisional: filters.unidadePrisional,
+      tipo: filters.tipo,
+      ano: filters.ano,
+    });
+
+    // Aplica filtro de status
+    if (filters.status) {
+      if (filters.status === 'aberto') {
+        result = result.filter(e => ['aberto', 'prorrogado'].includes(e.status));
+      } else if (filters.status === 'emAndamento') {
+        result = result.filter(e => e.status === 'fechado');
+      } else {
+        result = result.filter(e => e.status === filters.status);
+      }
+    }
+
+    return sortEditaisByStatus(result);
   }, [initialEditais, filters]);
 
   const proximos = filtered.filter(e => e.status === 'proximo');
@@ -39,7 +58,13 @@ export function FilterClientWrapper({ editais: initialEditais, regionais, unidad
   const hasActiveFilters = Object.values(filters).some(v => v !== '');
 
   const handleClearFilters = () => {
-    setFilters({ regional: '', unidadePrisional: '', tipo: '', ano: '' });
+    setFilters({
+      regional: '',
+      unidadePrisional: '',
+      tipo: '',
+      ano: '',
+      status: '',
+    });
   };
 
   return (
@@ -54,10 +79,12 @@ export function FilterClientWrapper({ editais: initialEditais, regionais, unidad
           selectedUnidade={filters.unidadePrisional}
           selectedTipo={filters.tipo}
           selectedAno={filters.ano}
+          selectedStatus={filters.status} // NOVO
           onRegionalChange={(v) => setFilters(prev => ({ ...prev, regional: v }))}
           onUnidadeChange={(v) => setFilters(prev => ({ ...prev, unidadePrisional: v }))}
           onTipoChange={(v) => setFilters(prev => ({ ...prev, tipo: v }))}
           onAnoChange={(v) => setFilters(prev => ({ ...prev, ano: v }))}
+          onStatusChange={(v) => setFilters(prev => ({ ...prev, status: v }))} // NOVO
           onClearFilters={handleClearFilters}
         />
       </div>
@@ -118,8 +145,7 @@ function EmptyState({ hasActiveFilters, onClearFilters }: { hasActiveFilters: bo
       <p className="text-sm text-gray-600 text-center max-w-md mb-4">
         {hasActiveFilters
           ? 'Não encontramos chamamentos com esses filtros. Tente ajustar os critérios.'
-          : 'Não há chamamentos cadastrados no momento.'
-        }
+          : 'Não há chamamentos cadastrados no momento.'}
       </p>
       {hasActiveFilters && (
         <button onClick={onClearFilters} className="btn-primary text-sm px-4 py-2">
