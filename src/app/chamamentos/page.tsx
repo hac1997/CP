@@ -11,15 +11,12 @@ export default async function ChamamentosPage() {
   const anos = getUniqueValues(editais, "ano") as number[]
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-gray-50">
-      <header className="border-b-4 border-green-700 bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
-            Chamamentos Públicos
+    <main className="min-h-screen font-montserrat">
+      <header className="border-b-4 border-green-700 bg-white">
+        <div className="max-w-5xl mx-auto px-6 py-6 flex flex-col items-center text-center">
+          <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 flex items-center gap-3 font-montserrat">
+            Editais de Processos Públicos de Seleção
           </h1>
-          <p className="text-lg text-gray-600">
-            Acompanhe os editais e chamamentos públicos disponíveis
-          </p>
         </div>
       </header>
 
