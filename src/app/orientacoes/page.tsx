@@ -71,18 +71,15 @@ export default function OrientacoesPage() {
     <main className="min-h-screen bg-gray-50 font-sans">
       
       {/* HEADER INSTITUCIONAL - MANTENDO O PADRÃO DE BORDA VERDE */}
-      <header className="bg-white border-b-4 border-green-700 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 flex items-center gap-2">
-            {/* Ícone principal em verde institucional */}
-            <BookOpen className="text-green-700 text-2xl hidden sm:block" />
-            Diretrizes e Orientações Oficiais 📘
-          </h1>
-        </div>
-        {/* FAIXA DE GRADIENTE DE DESTAQUE */}
-        <div className="h-1 bg-gradient-to-r from-green-600 to-green-800"></div>
-      </header>
 
+      <header className="border-b-4 border-green-700 bg-white">
+        <div className="max-w-5xl mx-auto px-6 py-6 flex flex-col items-center text-center">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 flex items-center gap-3">
+            Diretrizes e Orientações Oficiais 
+          </h1>
+
+        </div>
+      </header>
       <section className="max-w-7xl mx-auto px-6 py-8">
         
         <div className="pb-4 mb-8 border-b border-gray-200">
