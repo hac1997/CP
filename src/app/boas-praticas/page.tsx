@@ -3,33 +3,32 @@
 import React from 'react';
 import { FaCog, FaHeart, FaHammer, FaSeedling } from 'react-icons/fa';
 
+interface HighlightBoxProps {
+  children: React.ReactNode;
+  title: string;
+  iconClass: string;
+  colorClass?: string;
+  borderClass?: string;
+}
+
+const HighlightBox: React.FC<HighlightBoxProps> = ({
+  children,
+  title,
+  iconClass,
+  colorClass = '',
+  borderClass = '',
+}) => (
+  <div className={`p-6 rounded-lg ${colorClass} ${borderClass}`}>
+    <h4 className={`font-bold ${iconClass} mb-3 text-lg`}>{title}</h4>
+    <p className="text-gray-700 text-sm">{children}</p>
+  </div>
+);
+
+const Separator = () => (
+  <div className="border-b border-green-700 w-16 mb-4"></div>
+);
+
 export default function BoasPraticasPage() {
-  // Componente auxiliar para a linha de separação dos títulos h2
-  const Separator = () => (
-    <div className="border-b border-green-700 w-16 mb-4"></div>
-  );
-
-  // Componente auxiliar para padronizar o bloco de destaques
-  interface HighlightBoxProps {
-    children: React.ReactNode;
-    title: string;
-    iconClass: string;
-    colorClass?: string;
-    borderClass?: string;
-  }
-
-  const HighlightBox: React.FC<HighlightBoxProps> = ({
-    children,
-    title,
-    iconClass,
-    colorClass = '',
-    borderClass = '',
-  }) => (
-    <div className={`p-6 rounded-lg ${colorClass} ${borderClass}`}>
-      <h4 className={`font-bold ${iconClass} mb-3 text-lg`}>{title}</h4>
-      <p className="text-gray-700 text-sm">{children}</p>
-    </div>
-  );
 
   return (
     <main className="min-h-screen bg-white text-gray-800">

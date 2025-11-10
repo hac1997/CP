@@ -1,7 +1,6 @@
 // app/chamamentos/page.tsx
 import { FilterClientWrapper } from "./FilterClientWrapper"
-import { fetchEditaisFromSheets, getUniqueValues } from "@/services/editalService"
-import { EditalComAno } from "@/services/editalService"
+import { fetchEditaisFromSheets, getUniqueValues, EditalComAno } from "@/services/editalService"
 
 export default async function ChamamentosPage() {
   const editais: EditalComAno[] = await fetchEditaisFromSheets()

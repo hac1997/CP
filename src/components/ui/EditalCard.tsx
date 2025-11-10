@@ -4,7 +4,7 @@ import { MapPin, FileText, Calendar, Building2, ExternalLink } from 'lucide-reac
 import { cn } from '@/lib/utils'
 
 interface EditalCardProps {
-  edital: Edital
+  readonly edital: Edital
 }
 
 const statusConfig = {

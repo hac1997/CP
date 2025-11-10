@@ -4,9 +4,9 @@ import { cn } from '@/lib/utils'
 
 const bannerVariants = cva(
   'sticky z-10 backdrop-blur-2xl border rounded-2xl ' +
-    'transition-all duration-500 ease-in-out ' +
-    'shadow-[0_8px_32px_-8px_rgba(0,0,0,0.25)] ' +
-    'hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.35)]',
+  'transition-all duration-500 ease-in-out ' +
+  'shadow-[0_8px_32px_-8px_rgba(0,0,0,0.25)] ' +
+  'hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.35)]',
   {
     variants: {
       size: {
@@ -20,18 +20,23 @@ const bannerVariants = cva(
           'border-white/40 dark:border-neutral-700/50',
         solid:
           'bg-neutral-100 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800',
+        gradient:
+          'bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 ' +
+          'text-white border-transparent shadow-lg ' +
+          'hover:brightness-105',
       },
     },
     defaultVariants: { size: 'default', variant: 'glass' },
   }
 )
 
+
 export interface SectionBannerTitleProps {
   title: string
   className?: string
   subtitle?: string
   count?: number
-  variant?: 'glass' | 'solid'
+  variant?: 'glass' | 'solid' | 'default' | 'gradient'
   size?: 'default' | 'compact'
 }
 
@@ -44,7 +49,7 @@ export function SectionBannerTitle({
   className,
 }: SectionBannerTitleProps) {
   return (
-    <header className={cn(bannerVariants({ variant, size }), className)}>
+    <header className={cn(bannerVariants({ variant: variant === 'default' ? 'glass' : variant, size }), className)}>
       <div className="relative max-w-7xl mx-auto px-6 text-center overflow-hidden">
         {/* textura de pontos sutil */}
         <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(circle_at_center,white_1px,transparent_1px)] bg-[length:22px_22px]" />

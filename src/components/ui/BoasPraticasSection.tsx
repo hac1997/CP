@@ -4,7 +4,7 @@ import { BoasPraticasSection as SectionType } from '@/types/boaspraticas'
 import { ImageCarousel } from './ImageCarousel'
 
 interface BoasPraticasSectionProps {
-  section: SectionType
+  readonly section: SectionType
 }
 
 export function BoasPraticasSection({ section }: BoasPraticasSectionProps) {
@@ -27,9 +27,9 @@ export function BoasPraticasSection({ section }: BoasPraticasSectionProps) {
 }
 
 interface SectionProps {
-  titulo: string
-  paragrafos: string[]
-  imagens: string[]
+  readonly titulo: string
+  readonly paragrafos: string[]
+  readonly imagens: string[]
 }
 
 function SectionType1({ titulo, paragrafos, imagens }: SectionProps) {
@@ -45,8 +45,10 @@ function SectionType1({ titulo, paragrafos, imagens }: SectionProps) {
             {titulo}
           </h2>
           <div className="space-y-3 text-gray-700 leading-relaxed">
-            {paragrafos.map((paragrafo, idx) => (
-              <p key={idx} className="text-justify">{paragrafo}</p>
+            {paragrafos.map((paragrafo) => (
+              <p key={paragrafo.slice(0, 20)} className="text-justify">
+                {paragrafo}
+              </p>
             ))}
           </div>
         </div>
@@ -77,8 +79,10 @@ function SectionType2({ titulo, paragrafos, imagens }: SectionProps) {
           {titulo}
         </h2>
         <div className="space-y-3 text-gray-700 leading-relaxed">
-          {paragrafos.map((paragrafo, idx) => (
-            <p key={idx} className="text-justify">{paragrafo}</p>
+          {paragrafos.map((paragrafo) => (
+            <p key={paragrafo.slice(0, 20)} className="text-justify">
+              {paragrafo}
+            </p>
           ))}
         </div>
       </div>
@@ -95,8 +99,10 @@ function SectionType3({ titulo, paragrafos, imagens }: SectionProps) {
             {titulo}
           </h2>
           <div className="space-y-3 text-gray-700 leading-relaxed">
-            {paragrafos.map((paragrafo, idx) => (
-              <p key={idx} className="text-justify">{paragrafo}</p>
+            {paragrafos.map((paragrafo) => (
+              <p key={paragrafo.slice(0, 20)} className="text-justify">
+                {paragrafo}
+              </p>
             ))}
           </div>
         </div>
@@ -128,8 +134,10 @@ function SectionType4({ titulo, paragrafos, imagens }: SectionProps) {
             {titulo}
           </h2>
           <div className="space-y-3 text-gray-700 leading-relaxed">
-            {paragrafos.map((paragrafo, idx) => (
-              <p key={idx} className="text-justify">{paragrafo}</p>
+            {paragrafos.map((paragrafo) => (
+              <p key={paragrafo.slice(0, 20)} className="text-justify">
+                {paragrafo}
+              </p>
             ))}
           </div>
         </div>

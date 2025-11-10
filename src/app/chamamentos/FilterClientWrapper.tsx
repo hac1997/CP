@@ -9,11 +9,11 @@ import { filterEditais, sortEditaisByStatus, EditalComAno } from '@/services/edi
 import { Inbox } from 'lucide-react'
 
 interface Props {
-  editais: EditalComAno[]
-  regionais: string[]
-  unidades: string[]
-  tipos: string[]
-  anos: number[]
+  readonly editais: EditalComAno[]
+  readonly regionais: string[]
+  readonly unidades: string[]
+  readonly tipos: string[]
+  readonly anos: number[]
 }
 
 export function FilterClientWrapper({ editais: initialEditais, regionais, unidades, tipos, anos }: Props) {
@@ -91,7 +91,7 @@ export function FilterClientWrapper({ editais: initialEditais, regionais, unidad
         <EmptyState hasActiveFilters={hasActiveFilters} onClearFilters={handleClearFilters} />
       ) : (
         <div className="[&>section]:mb-0 [&>section:not(:last-child)]:mb-10">
-          <EditalSection title="Próximos" editais={proximos} variant="gradient" />
+          <EditalSection title="Próximos" editais={proximos} variant="default" />
           <EditalSection
             title="Inscrições Abertas"
             subtitle="Inclui prorrogados"
@@ -113,7 +113,8 @@ function EditalSection({
   count,
   editais,
   variant = 'default',
-}: SectionBannerTitleProps & { editais: EditalComAno[] }) {
+}: Readonly<SectionBannerTitleProps & { editais: EditalComAno[] }>) {
+
   if (editais.length === 0) return null
 
   return (
@@ -130,8 +131,12 @@ function EditalSection({
     </section>
   )
 }
+interface EmptyStateProps {
+  readonly hasActiveFilters: boolean
+  readonly onClearFilters: () => void
+}
 
-function EmptyState({ hasActiveFilters, onClearFilters }: { hasActiveFilters: boolean; onClearFilters: () => void }) {
+function EmptyState({ hasActiveFilters, onClearFilters }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-16 px-6 bg-white rounded-2xl shadow-xl border border-gray-200">
       <div className="w-20 h-20 mb-6 rounded-full bg-gradient-to-br from-blue-100 to-gray-100 flex items-center justify-center">
@@ -156,3 +161,4 @@ function EmptyState({ hasActiveFilters, onClearFilters }: { hasActiveFilters: bo
     </div>
   )
 }
+

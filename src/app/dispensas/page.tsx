@@ -1,5 +1,3 @@
-import { HeroCarousel } from "@/components/HeroCarousel";
-
 // src/app/dispensas/page.tsx
 export default function DispensasPage() {
   return (

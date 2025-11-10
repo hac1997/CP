@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { FaHandshake, FaCheckCircle, FaArrowRight } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 
 export default function ParceriasLaboraisPage() {
   return (

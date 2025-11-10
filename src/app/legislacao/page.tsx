@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { FaFileAlt, FaGavel, FaSyncAlt, FaInfoCircle } from "react-icons/fa";
 import { Legislacao } from "@/types/legislacao";
 import { fetchLegislacoesFromSheets } from "@/services/legislacaoService";
-import { HeroCarousel } from "@/components/HeroCarousel";
 
 export default function LegislacaoPage() {
   const [legislacoes, setLegislacoes] = useState<Legislacao[]>([]);
@@ -102,10 +101,9 @@ export default function LegislacaoPage() {
 
         {!loading && legislacoes.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {legislacoes.map((lei, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-lg shadow-lg hover:shadow-xl transition duration-300 border border-gray-100 border-l-4 border-green-700 p-5"
+            {legislacoes.map((lei) => (
+              <div key={lei.link || lei.titulo}
+                className="bg-white rounded-lg shadow-lg hover:shadow-xl transition duration-300 border border-l-4 border-green-700 p-5"
               >
                 <div className="flex items-start gap-4">
                   <FaFileAlt className="text-green-700 text-2xl mt-1 flex-shrink-0" />
