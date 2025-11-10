@@ -261,15 +261,15 @@ interface FilterBadgeProps {
 
 function FilterBadge({ label, value, onRemove }: FilterBadgeProps) {
   return (
-    <div className="inline-flex items-center gap-1.5 px-2 py-1 bg-blue-100 text-blue-800 rounded-md border border-blue-200 text-xs font-medium">
-      <span className="text-[10px] font-bold text-blue-600">{label}:</span>
-      <span className="max-w-[100px] truncate">{value}</span>
+    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-900 rounded-lg border border-blue-200 text-xs font-medium shadow-sm hover:shadow-md transition-all">
+      <span className="text-[11px] font-bold text-blue-700">{label}:</span>
+      <span className="max-w-[120px] truncate">{value}</span>
       <button
         onClick={onRemove}
-        className="hover:bg-blue-200 rounded-full p-0.5 transition-colors focus:outline-none focus:ring-1 focus:ring-blue-500"
+        className="hover:bg-blue-200 rounded-full p-1 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
         aria-label={`Remover filtro ${label}: ${value}`}
       >
-        <X className="w-3 h-3" aria-hidden="true" />
+        <X className="w-3.5 h-3.5" aria-hidden="true" />
       </button>
     </div>
   )

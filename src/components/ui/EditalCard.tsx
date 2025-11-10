@@ -22,16 +22,17 @@ export function EditalCard({ edital }: EditalCardProps) {
   const cardContent = (
     <article
       className={cn(
-        'relative rounded-2xl border-l-4 bg-white p-6 shadow-sm',
-        'transition-all duration-200 ease-out',
-        'hover:shadow-xl hover:-translate-y-1',
+        'relative rounded-2xl border-l-4 bg-white p-6 shadow-md',
+        'transition-all duration-300 ease-out',
+        'hover:shadow-2xl hover:-translate-y-2',
+        'border border-gray-100',
         config.color
       )}
     >
       <div className="space-y-4">
         {/* Cabeçalho */}
         <div className="flex items-start justify-between gap-3">
-          <h3 className="text-lg font-bold text-gov-neutral-900 line-clamp-2 transition-colors duration-200 group-hover:text-gov-warning-600">
+          <h3 className="text-lg font-bold text-gray-900 line-clamp-2 transition-colors duration-300 group-hover:text-blue-600">
             {edital.titulo}
           </h3>
           <div className="flex items-center gap-2 shrink-0">
@@ -113,7 +114,7 @@ export function EditalCard({ edital }: EditalCardProps) {
       </div>
 
       {/* Barra inferior */}
-      <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-gov-primary-500 to-gov-primary-600 w-0 group-hover:w-full transition-all duration-300 ease-out rounded-b-xl" />
+      <div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-green-600 w-0 group-hover:w-full transition-all duration-500 ease-out rounded-b-xl" />
     </article>
   )
 
@@ -124,7 +125,7 @@ export function EditalCard({ edital }: EditalCardProps) {
         href={edital.link}
         target="_blank"
         rel="noopener noreferrer"
-        className="group block focus:outline-none focus:ring-2 focus:ring-gov-primary-500 focus:ring-offset-2 rounded-2xl"
+        className="group block focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-2xl"
         aria-label={`Abrir edital "${edital.titulo}" em nova aba`}
       >
         {cardContent}

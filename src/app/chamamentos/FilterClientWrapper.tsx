@@ -68,8 +68,8 @@ export function FilterClientWrapper({ editais: initialEditais, regionais, unidad
   };
 
   return (
-    <div className="space-y-6">
-      <div className="bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl shadow-lg p-4 sm:p-5">
+    <div className="space-y-8">
+      <div className="bg-white backdrop-blur-sm border border-blue-200 rounded-2xl shadow-xl p-6 transition-all hover:shadow-2xl">
         <FilterBar
           regionais={regionais}
           unidades={unidades}
@@ -92,7 +92,7 @@ export function FilterClientWrapper({ editais: initialEditais, regionais, unidad
       {filtered.length === 0 ? (
         <EmptyState hasActiveFilters={hasActiveFilters} onClearFilters={handleClearFilters} />
       ) : (
-        <>
+        <div className="space-y-10">
           <EditalSection title="Próximos" editais={proximos} variant="gradient" />
           <EditalSection
             title="Abertos"
@@ -103,7 +103,7 @@ export function FilterClientWrapper({ editais: initialEditais, regionais, unidad
           />
           <EditalSection title="Em Andamento" editais={emAndamento} variant="default" />
           <EditalSection title="Concluídos" editais={concluidos} variant="default" />
-        </>
+        </div>
       )}
     </div>
   );
@@ -119,9 +119,9 @@ function EditalSection({
   if (editais.length === 0) return null;
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-6">
       <SectionBannerTitle title={title} subtitle={subtitle} count={count} variant={variant} />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4 sm:px-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {editais.map((edital) => (
           <EditalCard
             key={`${edital.titulo}-${edital.dataPublicacao}-${edital.unidadesPrisionais}`}
@@ -135,20 +135,23 @@ function EditalSection({
 
 function EmptyState({ hasActiveFilters, onClearFilters }: { hasActiveFilters: boolean; onClearFilters: () => void }) {
   return (
-    <div className="flex flex-col items-center justify-center py-12 px-4 bg-white rounded-xl shadow-lg border border-gray-200">
-      <div className="w-16 h-16 mb-4 rounded-full bg-gray-100 flex items-center justify-center">
-        <Inbox className="w-8 h-8 text-gray-400" aria-hidden="true" />
+    <div className="flex flex-col items-center justify-center py-16 px-6 bg-white rounded-2xl shadow-xl border border-gray-200">
+      <div className="w-20 h-20 mb-6 rounded-full bg-gradient-to-br from-blue-100 to-gray-100 flex items-center justify-center">
+        <Inbox className="w-10 h-10 text-blue-600" aria-hidden="true" />
       </div>
-      <h3 className="text-lg font-bold text-gray-900 mb-2 text-center">
+      <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">
         {hasActiveFilters ? 'Nenhum resultado encontrado' : 'Nenhum chamamento disponível'}
       </h3>
-      <p className="text-sm text-gray-600 text-center max-w-md mb-4">
+      <p className="text-base text-gray-600 text-center max-w-md mb-6">
         {hasActiveFilters
           ? 'Não encontramos chamamentos com esses filtros. Tente ajustar os critérios.'
           : 'Não há chamamentos cadastrados no momento.'}
       </p>
       {hasActiveFilters && (
-        <button onClick={onClearFilters} className="btn-primary text-sm px-4 py-2">
+        <button
+          onClick={onClearFilters}
+          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-md hover:shadow-lg"
+        >
           Limpar Filtros
         </button>
       )}
